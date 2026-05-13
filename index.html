@@ -123,15 +123,15 @@ const WORKOUTS = {
     { name:"Barbell Back Squat",    sets:4, reps:"6–8"    },
     { name:"Bulgarian Split Squat", sets:4, reps:"8/side" },
     { name:"Single-leg Hip Thrust", sets:3, reps:"10/side"},
-    { name:"Cable Abduction",       sets:3, reps:"15"     },
+    { name:"Cable Abduction",       sets:3, reps:"15/side"},
     { name:"Sled Push",             sets:3, reps:"20m"    },
     { name:"Burpee Broad Jumps",    sets:5, reps:"10m"    },
-    { name:"Goblet Squat Walkouts", sets:3, reps:"10m"    },
+    { name:"Goblet Squat Walkouts", sets:3, reps:"10"    },
   ]},
   4: { name:"Back & Core", emoji:"🔥", exercises:[
     { name:"Deadlift",           sets:4, reps:"5"       },
     { name:"Pendlay Row",        sets:4, reps:"6–8"     },
-    { name:"Single-arm DB Row",  sets:3, reps:"10"      },
+    { name:"Single-arm DB Row",  sets:3, reps:"10/side" },
     { name:"Cable Pull-through", sets:3, reps:"12"      },
     { name:"Hanging Knee Raise", sets:3, reps:"15"      },
     { name:"Ab Wheel Rollout",   sets:3, reps:"10"      },
@@ -344,7 +344,7 @@ function render() {
             <span class="ex-name ${hasData?"active":""}">${ex.name}</span>
             ${poFlag?`<span class="po-badge">↑ INCREASE</span>`:""}
           </div>
-          <div class="ex-target" style="color:${c.accent}">${ex.sets} sets × ${ex.reps} reps</div>
+          <div class="ex-target" style="color:${c.accent}">${ex.sets} sets × ${ex.reps || ex.secs} ${ex.secs ? "secs" : "reps"}</div>
           <div class="ex-last">${last?`Last: ${last.maxWeight}kg × ${last.avgReps} reps avg`:""}</div>
         </div>
         <div class="ex-right">
