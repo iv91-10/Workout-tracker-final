@@ -331,7 +331,8 @@ function render() {
     const last = getLastSession(ex.name);
     const poFlag = getPOFlag(ex.name);
     const hasData = (sets[ex.name]||[]).some(s=>s.weight||s.reps);
-    const safe = ex.name.replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+    const safe = exName.replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+    const exObj = WORKOUTS[activeDay].exercises.find(e => e.name === exName);
     const card = document.createElement("div");
     card.className = "ex-card";
     card.dataset.ex = ex.name;
@@ -344,6 +345,9 @@ function render() {
             <span class="ex-num">${String(i+1).padStart(2,"0")}</span>
             <span class="ex-name ${hasData?"active":""}">${ex.name}</span>
             ${poFlag?`<span class="po-badge">↑ INCREASE</span>`:""}
+              ${exObj?.note === "Optional" ? `<span style="font-size:9px;background:#f0f0f0;color:#999;padding:2px 7px;border-radius:4px;font-weight:700;">OPTIONAL</span>` : ""}
+              ${exObj?.note === "Mandatory" ? `<span style="font-size:9px;background:#fff0f3;color:#ff3b6b;padding:2px 7px;border-radius:4px;font-weight:700;border:1px solid #ffd0da;">MUST DO</span>` : ""}
+
           </div>
           <div class="ex-target" style="color:${c.accent}">${ex.sets} sets × ${ex.reps || ex.secs} ${ex.secs ? "secs" : "reps"}</div>
           <div class="ex-last">${last?`Last: ${last.maxWeight}kg × ${last.avgReps} reps avg`:""}</div>
