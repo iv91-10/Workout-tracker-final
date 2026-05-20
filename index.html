@@ -332,6 +332,9 @@ function render() {
     const poFlag = getPOFlag(ex.name);
     const hasData = (sets[ex.name]||[]).some(s=>s.weight||s.reps);
     const safe = exName.replace(/\\/g,"\\\\").replace(/'/g,"\\'");
+      let noteBadge = "";
+        if (ex.note === "Optional") noteBadge = "<span style='font-size:9px;background:#f0f0f0;color:#999;padding:2px 7px;border-radius:4px;font-weight:700;'>OPTIONAL</span>";
+        if (ex.note === "Mandatory") noteBadge = "<span style='font-size:9px;background:#fff0f3;color:#ff3b6b;padding:2px 7px;border-radius:4px;font-weight:700;border:1px solid #ffd0da;'>MUST DO</span>";
     const exObj = WORKOUTS[activeDay].exercises.find(e => e.name === exName);
     const card = document.createElement("div");
     card.className = "ex-card";
@@ -344,7 +347,7 @@ function render() {
           <div class="ex-top-row">
             <span class="ex-num">${String(i+1).padStart(2,"0")}</span>
             <span class="ex-name ${hasData?"active":""}">${ex.name}</span>
-            ${poFlag?`<span class="po-badge">↑ INCREASE</span>`:""}
+            ${poFlag?`<span class="po-badge">↑ INCREASE</span>`:""}${noteBadge}
               ${ex.note === "Optional" ? "<span style=\"font-size:9px;background:#f0f0f0;color:#999;padding:2px 7px;border-radius:4px;font-weight:700;\">OPTIONAL</span>" : ""}
               ${ex.note === "Mandatory" ? "<span style=\"font-size:9px;background:#fff0f3;color:#ff3b6b;padding:2px 7px;border-radius:4px;font-weight:700;border:1px solid #ffd0da;\">MUST DO</span>" : ""}
           </div>
