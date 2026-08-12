@@ -244,7 +244,7 @@ const STORAGE_KEY = 'sm-tracker-state-v1';
 
 // ---------- DATA ----------
 const WEEK = [
-  { id:'mon', name:'Monday', label:'Lower Strength', time:'55 min', accent:'strength',
+  { id:'mon', name:'Monday', label:'Lower Strength', time:'58 min', accent:'strength',
     intent:'Build strength.',
     sections:[
       { id:'mon-warm', title:'Warm-up', time:'8 min', kind:'list', items:[
@@ -263,8 +263,9 @@ const WEEK = [
         {id:'mon-a1', name:'Bulgarian Split Squat', sets:3, reps:8, min:4, max:15, unit:'reps'},
         {id:'mon-a2', name:'Hamstring Curl', sets:3, reps:10, min:4, max:15, unit:'reps'},
       ]},
-      { id:'mon-fin', title:'Finisher', time:'5 min', kind:'lift', items:[
-        {id:'mon-f1', name:'Suitcase Carry', sets:3, reps:30, min:10, max:60, unit:'m'},
+      { id:'mon-fin', title:'Finisher', time:'8 min', kind:'lift', items:[
+        {id:'mon-f1', name:'Sled Drag (forward, rope pull)', sets:3, reps:20, min:10, max:50, unit:'m'},
+        {id:'mon-f2', name:'Suitcase Carry', sets:3, reps:30, min:10, max:60, unit:'m'},
       ]},
       { id:'mon-mob', title:'Mobility / cool-down', time:'5 min', kind:'list', items:[
         {id:'mon-mo1', name:'Couch stretch', detail:''},
@@ -273,7 +274,7 @@ const WEEK = [
       ]},
     ]},
 
-  { id:'tue', name:'Tuesday', label:'Upper Strength', time:'50 min', accent:'strength',
+  { id:'tue', name:'Tuesday', label:'Upper Strength', time:'53 min', accent:'strength',
     intent:'Strong, resilient shoulders and back.',
     sections:[
       { id:'tue-warm', title:'Warm-up', time:'8 min', kind:'list', items:[
@@ -291,8 +292,9 @@ const WEEK = [
         {id:'tue-a1', name:'Chest Supported Row', sets:3, reps:10, min:4, max:15, unit:'reps'},
         {id:'tue-a2', name:'Face Pulls', sets:3, reps:15, min:8, max:25, unit:'reps'},
       ]},
-      { id:'tue-fin', title:'Finisher', time:'5 min', kind:'lift', items:[
-        {id:'tue-f1', name:'Farmer Carries', sets:3, reps:40, min:10, max:80, unit:'m'},
+      { id:'tue-fin', title:'Finisher', time:'8 min', kind:'lift', items:[
+        {id:'tue-f1', name:'Sled Row (rope pull, standing)', sets:3, reps:20, min:10, max:50, unit:'m'},
+        {id:'tue-f2', name:'Farmer Carries', sets:3, reps:40, min:10, max:80, unit:'m'},
       ]},
       { id:'tue-mob', title:'Mobility / cool-down', time:'5 min', kind:'list', items:[
         {id:'tue-mo1', name:'Thoracic rotations', detail:''},
@@ -312,7 +314,7 @@ const WEEK = [
       ]},
     ]},
 
-  { id:'thu', name:'Thursday', label:'Athletic Lower Body', time:'55 min', accent:'strength',
+  { id:'thu', name:'Thursday', label:'Athletic Lower Body', time:'58 min', accent:'strength',
     intent:'Athleticism and power.',
     sections:[
       { id:'thu-warm', title:'Warm-up', time:'8 min', kind:'list', items:[
@@ -330,8 +332,9 @@ const WEEK = [
         {id:'thu-a1', name:'Walking Lunges', sets:3, reps:12, min:6, max:20, unit:'reps/leg'},
         {id:'thu-a2', name:'Pallof Press', sets:3, reps:10, min:5, max:15, unit:'reps/side'},
       ]},
-      { id:'thu-fin', title:'Finisher', time:'5 min', kind:'lift', items:[
-        {id:'thu-f1', name:'Heavy Carries', sets:3, reps:30, min:10, max:60, unit:'m'},
+      { id:'thu-fin', title:'Finisher', time:'8 min', kind:'lift', items:[
+        {id:'thu-f1', name:'Sled Drag (backward, rope pull)', sets:3, reps:20, min:10, max:50, unit:'m'},
+        {id:'thu-f2', name:'Heavy Carries', sets:3, reps:30, min:10, max:60, unit:'m'},
       ]},
       { id:'thu-mob', title:'Mobility / cool-down', time:'5 min', kind:'list', items:[
         {id:'thu-mo1', name:'Hip 90/90', detail:''},
@@ -340,7 +343,7 @@ const WEEK = [
       ]},
     ]},
 
-  { id:'fri', name:'Friday', label:'Upper Athletic', time:'50 min', accent:'strength',
+  { id:'fri', name:'Friday', label:'Upper Athletic', time:'53 min', accent:'strength',
     intent:'Power and finish with stretching.',
     sections:[
       { id:'fri-warm', title:'Warm-up', time:'8 min', kind:'list', items:[
@@ -357,8 +360,9 @@ const WEEK = [
         {id:'fri-a1', name:'Cable Row', sets:3, reps:10, min:4, max:15, unit:'reps'},
         {id:'fri-a2', name:'Lateral Raises', sets:3, reps:15, min:8, max:20, unit:'reps'},
       ]},
-      { id:'fri-fin', title:'Finisher', time:'5 min', kind:'lift', items:[
-        {id:'fri-f1', name:'Hammer Curl + Triceps superset', sets:3, reps:12, min:6, max:20, unit:'reps'},
+      { id:'fri-fin', title:'Finisher', time:'8 min', kind:'lift', items:[
+        {id:'fri-f1', name:'Sled Push', sets:3, reps:20, min:10, max:50, unit:'m'},
+        {id:'fri-f2', name:'Hammer Curl + Triceps superset', sets:3, reps:12, min:6, max:20, unit:'reps'},
       ]},
       { id:'fri-mob', title:'Mobility / cool-down', time:'5 min', kind:'list', items:[
         {id:'fri-mo1', name:'Rotator cuff stretch', detail:''},
