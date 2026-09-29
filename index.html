@@ -2,724 +2,1180 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="A weekly strength, mobility and nervous-system-reset tracker with reorderable sessions and adjustable rep targets.">
-<meta name="theme-color" content="#FAF8F4">
-<title>Strong &amp; Mobile — Weekly Performance Blueprint</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Strong · Mobile · Athletic — 12-Week Performance &amp; Longevity Programme</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#FAF8F4;
-    --surface:#FFFFFF;
-    --surface-2:#F1EEE6;
-    --line: rgba(37,40,36,0.14);
-    --text:#26281F;
-    --text-dim:#5C6259;
-
-    /* "ink" tones: used for text, icons, sliders, focus rings — AA-checked against --bg and --surface */
-    --strength:#8A5A12;
-    --recovery:#2F6B4A;
-    --reset:#3E4E93;
-
-    /* pastel tones: decorative fills only (bars, dots) — never used for text */
-    --strength-pastel:#F0C989;
-    --recovery-pastel:#BFE0CB;
-    --reset-pastel:#C7D0F2;
-
-    --strength-dim: rgba(138,90,18,0.13);
-    --recovery-dim: rgba(47,107,74,0.13);
-    --reset-dim: rgba(62,78,147,0.13);
-    --radius: 10px;
+    --ink:#1D2521;
+    --ink-soft:#3A4540;
+    --paper:#F6F3EC;
+    --paper-deep:#EEE8DA;
+    --moss:#445540;
+    --moss-dark:#2E3B2B;
+    --moss-pale:#DFE6D9;
+    --bronze:#AD8A4E;
+    --bronze-pale:#EFE3C8;
+    --clay:#A15C42;
+    --clay-pale:#EBDCD3;
+    --line:#D8D0BC;
+    --white:#FFFDF8;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top, 0px);
+    padding-bottom:env(safe-area-inset-bottom, 0px);
   }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#F1EEE4;
+      --ink-soft:#C9C2AE;
+      --paper:#14170F;
+      --paper-deep:#1D2118;
+      --moss:#8AB07C;
+      --moss-dark:#5C7A54;
+      --moss-pale:#26301F;
+      --bronze:#D2AF6E;
+      --bronze-pale:#3A2E15;
+      --clay:#D08262;
+      --clay-pale:#3A2418;
+      --line:#3A3A2E;
+      --white:#1B1F19;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#F1EEE4;
+    --ink-soft:#C9C2AE;
+    --paper:#14170F;
+    --paper-deep:#1D2118;
+    --moss:#8AB07C;
+    --moss-dark:#5C7A54;
+    --moss-pale:#26301F;
+    --bronze:#D2AF6E;
+    --bronze-pale:#3A2E15;
+    --clay:#D08262;
+    --clay-pale:#3A2418;
+    --line:#3A3A2E;
+    --white:#1B1F19;
+  }
+  html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top, 0px);}
   *{box-sizing:border-box;}
   body{
     margin:0;
-    background:var(--bg);
-    color:var(--text);
-    font-family:'Inter',sans-serif;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'Public Sans', sans-serif;
+    line-height:1.55;
     -webkit-font-smoothing:antialiased;
-    padding-bottom:60px;
   }
-  .wrap{max-width:760px;margin:0 auto;padding:28px 20px 0;}
-  header.hero{padding:6px 0 22px;border-bottom:1px solid var(--line);}
-  .eyebrow{
-    font-family:'IBM Plex Mono',monospace;
-    font-size:11px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--text-dim);
-    margin-bottom:10px;
-  }
-  h1{
-    font-family:'Fraunces',serif;
+  h1,h2,h3,h4{
+    font-family:'Fraunces', serif;
     font-weight:600;
-    font-size:clamp(28px,6vw,38px);
-    line-height:1.08;
-    margin:0 0 8px;
+    margin:0;
+    color:var(--ink);
   }
-  .sub{color:var(--text-dim);font-size:14.5px;max-width:52ch;line-height:1.5;}
+  .wrap{max-width:880px;margin:0 auto;padding:0 24px;}
 
-  /* Pulse strip — signature element */
-  .pulse{
-    margin-top:22px;
-    display:grid;
-    grid-template-columns:repeat(7,1fr);
-    gap:6px;
-    align-items:end;
+  /* ---------- HERO ---------- */
+  .hero{
+    background:linear-gradient(180deg,var(--moss-dark) 0%, var(--moss) 100%);
+    color:var(--white);
+    padding:64px 24px 48px;
   }
-  .pulse button{
-    background:none;border:none;cursor:pointer;color:var(--text-dim);
-    display:flex;flex-direction:column;align-items:center;gap:8px;
-    padding:0 0 10px;font-family:'IBM Plex Mono',monospace;
-  }
-  .pulse .bar{
-    width:100%;
-    border-radius:3px 3px 0 0;
-    background:var(--surface-2);
-    position:relative;
-    height:46px;
-    display:flex;align-items:flex-end;
-  }
-  .pulse .bar i{
-    display:block;width:100%;border-radius:3px 3px 0 0;
-  }
-  .pulse .lbl{font-size:10px;letter-spacing:.06em;}
-  .pulse .dayname{font-size:9px;color:var(--text-dim);text-transform:uppercase;}
-  .pulse button.active .dayname{color:var(--text);}
-  .pulse button.active .bar{outline:1px solid var(--line);}
-  .pulse .dot{
-    width:5px;height:5px;border-radius:50%;margin-top:4px;
-    background:transparent;
-  }
-  .pulse .dot.done{background:var(--recovery);}
-
-  main{padding:26px 0 10px;}
-  .daytitle-row{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;flex-wrap:wrap;margin-bottom:4px;}
-  .daytitle{font-family:'Fraunces',serif;font-size:24px;font-weight:600;}
-  .badge{
-    font-family:'IBM Plex Mono',monospace;font-size:11px;
-    padding:4px 9px;border-radius:100px;white-space:nowrap;
-    border:1px solid var(--line);color:var(--text-dim);
-  }
-  .intent{color:var(--text-dim);font-size:14px;margin:6px 0 22px;font-style:italic;}
-
-  .section{
-    background:var(--surface);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
+  .hero-inner{max-width:880px;margin:0 auto;}
+  .hero .kicker{
+    font-size:13px;
+    letter-spacing:.04em;
+    color:var(--bronze-pale);
     margin-bottom:14px;
-    overflow:hidden;
+    font-weight:600;
   }
+  .hero h1{
+    color:var(--white);
+    font-size:clamp(34px,5.5vw,54px);
+    line-height:1.08;
+    font-optical-sizing:auto;
+    font-weight:600;
+    max-width:11ch;
+  }
+  .hero p.sub{
+    margin-top:18px;
+    max-width:46ch;
+    font-size:17px;
+    color:#DCE4D8;
+  }
+  .chips{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    margin-top:32px;
+  }
+  .chip{
+    border:1px solid rgba(255,255,255,.28);
+    color:#EDE7D6;
+    padding:7px 14px;
+    border-radius:100px;
+    font-size:13px;
+    background:rgba(255,255,255,.05);
+  }
+
+  /* ---------- SECTION SHELLS ---------- */
+  section{padding:52px 0;}
+  section.on-paper-deep{background:var(--paper-deep);}
   .section-head{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:12px 16px;border-bottom:1px solid var(--line);
-    background:var(--surface-2);
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:22px;
+    border-bottom:2px solid var(--ink);
+    padding-bottom:12px;
   }
-  .section-head h3{margin:0;font-size:13px;font-weight:600;letter-spacing:.02em;}
-  .section-time{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--text-dim);}
-
-  .item{
-    display:flex;align-items:center;gap:6px;
-    padding:10px 10px 10px 14px;border-bottom:1px solid var(--line);
-    transition:background .15s;
-  }
-  .item:last-child{border-bottom:none;}
-  .item.dragging{opacity:.35;}
-  .item.drag-over{background:var(--strength-dim);}
-  .item.kb-moved{background:var(--recovery-dim);}
-  .handle{display:none;} /* replaced by visible reorder buttons below — kept selector to avoid breaking older refs */
-  .reorder-grp{display:flex;flex-direction:column;flex-shrink:0;gap:3px;}
-  .reorder-btn{
-    background:var(--surface-2);border:1px solid var(--line);color:var(--text);cursor:pointer;
-    width:36px;height:32px;display:flex;align-items:center;justify-content:center;
-    border-radius:6px;font-size:12px;line-height:1;
-  }
-  .reorder-btn:hover{background:var(--strength-dim);border-color:var(--strength);}
-  .reorder-btn:disabled{opacity:.3;cursor:default;}
-  .reorder-btn:disabled:hover{background:var(--surface-2);border-color:var(--line);}
-  .item-main{flex:1;min-width:0;}
-  .item-name{font-size:14.5px;font-weight:500;}
-  .item-detail{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--text-dim);margin-top:2px;}
-  .item-note{font-size:13px;color:var(--text-dim);}
-
-  .slider-block{display:flex;align-items:center;gap:10px;min-width:150px;flex-shrink:0;}
-  input[type=range]{
-    -webkit-appearance:none;appearance:none;
-    width:88px;height:22px;background:transparent;border-radius:3px;
-  }
-  input[type=range]::-webkit-slider-runnable-track{height:3px;background:var(--line);border-radius:3px;}
-  input[type=range]::-moz-range-track{height:3px;background:var(--line);border-radius:3px;}
-  input[type=range]::-webkit-slider-thumb{
-    -webkit-appearance:none;width:22px;height:22px;border-radius:50%;margin-top:-9.5px;
-    background:var(--strength);cursor:pointer;border:2px solid var(--bg);
-  }
-  input[type=range]::-moz-range-thumb{
-    width:22px;height:22px;border-radius:50%;border:2px solid var(--bg);
-    background:var(--strength);cursor:pointer;
-  }
-  .rep-readout{
-    font-family:'IBM Plex Mono',monospace;font-size:12.5px;color:var(--strength);
-    min-width:52px;text-align:right;
+  .section-head h2{font-size:26px;}
+  .section-head .tag{
+    font-size:12px;
+    color:var(--moss);
+    font-weight:600;
+    letter-spacing:.03em;
+    white-space:nowrap;
   }
 
-  .complete-btn{
-    display:flex;align-items:center;gap:8px;
-    width:100%;justify-content:center;
-    min-height:44px;
-    padding:13px;margin-top:6px;
-    border-radius:var(--radius);
+  /* ---------- PHILOSOPHY ---------- */
+  .philosophy-lede{
+    font-family:'Fraunces', serif;
+    font-size:22px;
+    line-height:1.45;
+    max-width:34ch;
+    color:var(--moss-dark);
+    margin-bottom:22px;
+  }
+  .pillars{
+    display:grid;
+    grid-template-columns:repeat(auto-fit, minmax(130px,1fr));
+    gap:2px;
+    background:var(--line);
     border:1px solid var(--line);
-    background:var(--surface);color:var(--text);
-    font-family:'IBM Plex Mono',monospace;font-size:12.5px;letter-spacing:.04em;
-    cursor:pointer;text-transform:uppercase;
+    margin-top:18px;
   }
-  .complete-btn.done{background:var(--recovery-dim);border-color:var(--recovery);color:var(--recovery);}
-
-  .skip-link{
-    position:absolute;left:-999px;top:auto;
-    background:var(--strength);color:#FFFFFF;
-    padding:10px 16px;border-radius:6px;font-family:'IBM Plex Mono',monospace;font-size:13px;
-    z-index:100;
-  }
-  .skip-link:focus{position:fixed;left:12px;top:12px;}
-
-  a:focus-visible,
-  button:focus-visible,
-  input:focus-visible,
-  [tabindex]:focus-visible{
-    outline:2px solid var(--text);
-    outline-offset:2px;
-    border-radius:4px;
+  .pillar{
+    background:var(--white);
+    padding:14px 12px;
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink-soft);
   }
 
-  @media (prefers-reduced-motion: reduce){
-    *{transition:none !important; animation:none !important;}
+  /* ---------- WEEK OVERVIEW ---------- */
+  .week-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
+    gap:12px;
+  }
+  .week-card{
+    border:1px solid var(--line);
+    background:var(--white);
+    padding:16px 16px 14px;
+    border-left:4px solid var(--moss);
+  }
+  .week-card.recovery{border-left-color:var(--bronze);}
+  .week-card.run{border-left-color:var(--clay);}
+  .week-card.reset{border-left-color:var(--ink);background:var(--ink);}
+  .week-card.reset .day-name,.week-card.reset .focus,.week-card.reset .dur{color:var(--paper);}
+  .week-card .day-name{
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.05em;
+    color:var(--moss);
+    text-transform:uppercase;
+  }
+  .week-card.recovery .day-name{color:var(--bronze);}
+  .week-card.run .day-name{color:var(--clay);}
+  .week-card.reset .day-name{color:var(--bronze-pale);}
+  .week-card .focus{
+    font-family:'Fraunces', serif;
+    font-size:17px;
+    margin-top:6px;
+    line-height:1.25;
+  }
+  .week-card .dur{
+    margin-top:10px;
+    font-size:12.5px;
+    color:var(--ink-soft);
   }
 
-  .reset-list{list-style:none;margin:0;padding:0;}
-  .reset-list li{padding:11px 14px;border-bottom:1px solid var(--line);font-size:14px;color:var(--text-dim);line-height:1.5;}
-  .reset-list li:last-child{border-bottom:none;}
-  .reset-list b{color:var(--text);font-weight:500;}
+  /* ---------- DAY CARD ---------- */
+  .day{
+    border:1px solid var(--line);
+    background:var(--white);
+    margin-bottom:26px;
+  }
+  .day-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    flex-wrap:wrap;
+    gap:8px;
+    padding:22px 26px 18px;
+    border-bottom:1px solid var(--line);
+    background:var(--moss-pale);
+  }
+  .day.type-recovery .day-header{background:var(--bronze-pale);}
+  .day.type-run .day-header{background:var(--clay-pale);}
+  .day.type-reset .day-header{background:var(--ink);}
+  .day.type-reset .day-header h3, .day.type-reset .day-header .duration{color:var(--paper);}
+  .day.type-reset .day-header .day-label{color:var(--bronze-pale);}
+
+  .day-label{
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--moss-dark);
+    display:block;
+    margin-bottom:4px;
+  }
+  .day.type-recovery .day-label{color:#7A5E28;}
+  .day.type-run .day-label{color:var(--clay);}
+  .day-header h3{font-size:23px;}
+  .duration{font-size:13px;color:var(--ink-soft);white-space:nowrap;}
+  .day-body{padding:22px 26px 26px;}
+  .day-intent{
+    font-size:14.5px;
+    color:var(--ink-soft);
+    font-style:italic;
+    margin-bottom:18px;
+    padding-left:12px;
+    border-left:3px solid var(--line);
+  }
+  .block-title{
+    font-size:12px;
+    font-weight:700;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    color:var(--moss);
+    margin:20px 0 8px;
+  }
+  .day.type-recovery .block-title{color:#7A5E28;}
+  .day.type-run .block-title{color:var(--clay);}
+  ul.plain{margin:0;padding-left:18px;font-size:14.5px;}
+  ul.plain li{margin-bottom:4px;}
+
+  table.lift{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:6px;
+    font-size:14.5px;
+  }
+  table.lift th{
+    text-align:left;
+    font-size:11px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    padding:8px 10px;
+    border-bottom:1px solid var(--ink);
+  }
+  table.lift td{
+    padding:10px 10px;
+    border-bottom:1px solid var(--line);
+    vertical-align:top;
+  }
+  table.lift tr:last-child td{border-bottom:none;}
+  table.lift td.exname{font-weight:600;}
+  table.lift td.note{color:var(--ink-soft);font-size:13.5px;}
+  .num{font-variant-numeric:tabular-nums;white-space:nowrap;}
+
+  .note-box{
+    background:var(--paper-deep);
+    border:1px solid var(--line);
+    padding:12px 14px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    margin-top:14px;
+  }
+
+  /* ---------- MOVEMENT LOGIC ---------- */
+  .flow{
+    display:flex;
+    flex-direction:column;
+    gap:0;
+    max-width:620px;
+  }
+  .flow-step{
+    display:grid;
+    grid-template-columns:34px 1fr;
+    gap:14px;
+    padding:12px 0;
+    border-bottom:1px dashed var(--line);
+  }
+  .flow-step:last-child{border-bottom:none;}
+  .flow-step .arrow{
+    color:var(--bronze);
+    font-family:'Fraunces',serif;
+    font-size:18px;
+    text-align:center;
+  }
+  .flow-step .label{font-weight:700;font-size:14.5px;color:var(--moss-dark);}
+  .flow-step .via{font-size:14px;color:var(--ink-soft);margin-top:2px;}
+
+  .split-note{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:16px;
+    margin-top:24px;
+  }
+  @media(max-width:560px){.split-note{grid-template-columns:1fr;}}
+  .split-note .card{
+    border:1px solid var(--line);
+    background:var(--white);
+    padding:16px;
+  }
+  .split-note .card h4{font-size:15px;color:var(--moss-dark);margin-bottom:6px;}
+  .split-note .card p{font-size:14px;margin:0;color:var(--ink-soft);}
+
+  /* ---------- PROGRESSION WAVE ---------- */
+  .wave{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:2px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin-top:8px;
+  }
+  @media(max-width:640px){.wave{grid-template-columns:repeat(2,1fr);}}
+  .wave-week{
+    background:var(--white);
+    padding:16px 14px;
+  }
+  .wave-week.deload{background:var(--ink);color:var(--paper);}
+  .wave-week .wk{font-size:12px;font-weight:700;letter-spacing:.04em;color:var(--moss);text-transform:uppercase;}
+  .wave-week.deload .wk{color:var(--bronze-pale);}
+  .wave-week .rpe{font-family:'Fraunces',serif;font-size:24px;margin-top:6px;}
+  .wave-week p{font-size:13px;margin:8px 0 0;color:var(--ink-soft);}
+  .wave-week.deload p{color:#CFCABE;}
+
+  /* ---------- SESSION STRUCTURE ---------- */
+  .structure{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
+  .structure td, .structure th{padding:9px 10px;border-bottom:1px solid var(--line);}
+  .structure th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);}
+  .bar-wrap{background:var(--paper-deep);height:8px;width:100%;position:relative;}
+  .bar{background:var(--moss);height:8px;}
+
+  /* ---------- LUNCH TABLE ---------- */
+  .lunch-table{width:100%;border-collapse:collapse;font-size:14px;margin-top:8px;}
+  .lunch-table th{
+    text-align:left;
+    font-size:11px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    padding:9px 10px;
+    border-bottom:1px solid var(--ink);
+  }
+  .lunch-table td{padding:12px 10px;border-bottom:1px solid var(--line);vertical-align:top;}
+  .lunch-table td.day-col{font-weight:700;color:var(--moss-dark);white-space:nowrap;}
+  .lunch-table td.dish{font-weight:600;}
+  .lunch-table td.items{color:var(--ink-soft);}
+
+  .principles-list{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:14px;
+    margin-top:8px;
+  }
+  .principles-list .p-item{
+    border-left:3px solid var(--moss);
+    padding-left:12px;
+    font-size:14px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- CLOSING ---------- */
+  .closing{
+    background:var(--moss-dark);
+    color:var(--paper);
+    padding:56px 24px 60px;
+    text-align:center;
+  }
+  .closing h2{
+    color:var(--white);
+    font-size:clamp(24px,4vw,32px);
+    max-width:24ch;
+    margin:0 auto 18px;
+  }
+  .closing p{
+    max-width:52ch;
+    margin:0 auto;
+    color:#D9E0D5;
+    font-size:15.5px;
+    line-height:1.7;
+  }
+  .closing .sign{
+    margin-top:26px;
+    font-family:'Fraunces',serif;
+    font-style:italic;
+    color:var(--bronze-pale);
+    font-size:16px;
+  }
 
   footer{
-    margin-top:30px;padding-top:18px;border-top:1px solid var(--line);
-    color:var(--text-dim);font-size:12px;font-family:'IBM Plex Mono',monospace;
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+    text-align:center;
+    padding:24px;
+    font-size:12px;
+    color:var(--ink-soft);
   }
-  .accent-strength{color:var(--strength);}
-  .accent-recovery{color:var(--recovery);}
-  .accent-reset{color:var(--reset);}
 
-  @media (max-width:480px){
-    .item{flex-wrap:wrap;}
-    .slider-block{width:100%;justify-content:space-between;min-width:0;}
+  @media(max-width:600px){
+    .day-header{padding:18px 18px 14px;}
+    .day-body{padding:18px 18px 22px;}
+    section{padding:40px 0;}
   }
-  .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);}
+
+  /* ---------- LOGGING ---------- */
+  .progress-indicator{
+    font-size:12px;
+    font-variant-numeric:tabular-nums;
+    color:var(--ink-soft);
+    font-weight:600;
+    margin-top:2px;
+    display:block;
+  }
+  .day.type-reset .progress-indicator{color:#CFCABE;}
+
+  label.tick{
+    display:inline-flex;
+    align-items:center;
+    cursor:pointer;
+    margin:0 4px 4px 0;
+  }
+  label.tick input[type="checkbox"]{
+    appearance:none;
+    -webkit-appearance:none;
+    width:19px;
+    height:19px;
+    border:1.5px solid var(--ink-soft);
+    background:var(--white);
+    margin:0;
+    cursor:pointer;
+    position:relative;
+    flex-shrink:0;
+  }
+  label.tick input[type="checkbox"]:checked{
+    background:var(--moss);
+    border-color:var(--moss);
+  }
+  label.tick input[type="checkbox"]:checked::after{
+    content:"";
+    position:absolute;
+    left:5px;
+    top:1px;
+    width:5px;
+    height:10px;
+    border:solid var(--white);
+    border-width:0 2px 2px 0;
+    transform:rotate(45deg);
+  }
+  label.tick .set-no{
+    font-size:10.5px;
+    color:var(--ink-soft);
+    margin-left:3px;
+    margin-right:2px;
+  }
+
+  td.log-cell{white-space:nowrap;}
+  td.log-cell .ticks{display:flex;flex-wrap:wrap;align-items:center;}
+
+  tr.done td.exname{
+    color:var(--ink-soft);
+    text-decoration:line-through;
+    text-decoration-color:var(--moss);
+    text-decoration-thickness:1.5px;
+  }
+  tr.in-progress{background:var(--moss-pale);}
+  .day.type-recovery tr.in-progress, .day.type-recovery .check-list li.in-progress{background:var(--bronze-pale);}
+  .day.type-run tr.in-progress{background:var(--clay-pale);}
+
+  ul.check-list{list-style:none;margin:0;padding:0;font-size:14.5px;}
+  ul.check-list li{
+    display:flex;
+    align-items:flex-start;
+    gap:10px;
+    padding:6px 4px;
+    border-bottom:1px solid var(--paper-deep);
+  }
+  ul.check-list li:last-child{border-bottom:none;}
+  ul.check-list li label.tick{margin:2px 0 0;}
+  ul.check-list li span.item-text{flex:1;}
+  ul.check-list li.done span.item-text{
+    color:var(--ink-soft);
+    text-decoration:line-through;
+    text-decoration-color:var(--moss);
+  }
+  .day.type-recovery ul.check-list li.done span.item-text,
+  .day.type-reset ul.check-list li.done span.item-text{text-decoration-color:var(--bronze);}
+  .day.type-run ul.check-list li.done span.item-text{text-decoration-color:var(--clay);}
+  .day.type-reset ul.check-list li{border-bottom-color:rgba(255,255,255,.08);}
+  .day.type-reset ul.check-list li.done span.item-text{color:#9AA69B;}
+
+  /* ---------- PER-DAY LUNCH ---------- */
+  .lunch-block{
+    margin-top:22px;
+    border:1px solid var(--line);
+    border-left:3px solid var(--bronze);
+    background:var(--paper-deep);
+    padding:14px 16px;
+  }
+  .lunch-block .lunch-label{
+    font-size:11px;
+    text-transform:uppercase;
+    letter-spacing:.05em;
+    color:var(--bronze);
+    font-weight:700;
+    margin-bottom:6px;
+  }
+  .lunch-block .dish-name{
+    font-family:'Fraunces', serif;
+    font-size:16.5px;
+    color:var(--ink);
+    margin-bottom:4px;
+  }
+  .lunch-block .dish-items{font-size:13.5px;color:var(--ink-soft);}
+  .day.type-reset .lunch-block{
+    background:rgba(255,255,255,.06);
+    border-color:rgba(255,255,255,.14);
+    border-left-color:var(--bronze-pale);
+  }
+  .day.type-reset .lunch-block .dish-name{color:var(--paper);}
+  .day.type-reset .lunch-block .dish-items{color:#C6CFC3;}
+
+  /* ---------- COLLAPSE / EXPAND ---------- */
+  .day > .day-header{
+    cursor:pointer;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .day > .day-header:hover{filter:brightness(0.97);}
+  .day.collapsed .day-body{display:none;}
+  .chevron{
+    display:inline-block;
+    margin-left:8px;
+    font-size:15px;
+    line-height:1;
+    transition:transform .2s ease;
+    transform:translateY(-1px) rotate(180deg);
+  }
+  .day:not(.collapsed) .chevron{transform:translateY(-1px) rotate(0deg);}
+
+  /* ---------- TOP DAY SELECTOR ---------- */
+  .week-card{cursor:pointer;transition:transform .15s ease, box-shadow .15s ease;}
+  .week-card:hover{transform:translateY(-1px);}
+  .week-card.active{
+    box-shadow:0 0 0 2px var(--ink) inset;
+  }
+  .week-card.active.recovery{box-shadow:0 0 0 2px var(--bronze) inset;}
+  .week-card.active.run{box-shadow:0 0 0 2px var(--clay) inset;}
+  .week-card.active.reset{box-shadow:0 0 0 2px var(--bronze-pale) inset;}
+  .week-card:focus-visible{outline:2px solid var(--moss);outline-offset:2px;}
+  .overview-hint{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:-6px;
+    margin-bottom:16px;
+  }
 </style>
 </head>
 <body>
-<a href="#main" class="skip-link">Skip to today's session</a>
-<div class="wrap">
-  <header class="hero">
-    <div class="eyebrow">Strong &amp; Mobile — weekly blueprint</div>
-    <h1>Load, then let it land.</h1>
-    <p class="sub" id="pageDesc">4 strength sessions, 1 run, 1 mobility day, 1 full nervous-system reset. Tap ▲ ▼ next to any exercise to reorder it; the sliders lock in your reps for next time.</p>
 
-    <nav class="pulse" id="pulse" role="tablist" aria-label="Choose a day"></nav>
-  </header>
-
-  <main id="main" role="tabpanel" aria-describedby="pageDesc" tabindex="-1"></main>
-
-  <div id="liveRegion" class="sr-only" role="status" aria-live="polite"></div>
-
-  <footer>
-    <span id="footStreak">— completions logged</span>
-    <span>Everything here saves automatically, on this device.</span>
-  </footer>
+<div class="hero">
+  <div class="hero-inner">
+    <div class="kicker">TWELVE-WEEK PROGRAMME</div>
+    <h1>Strong, mobile, athletic.</h1>
+    <p class="sub">A performance and longevity programme built for an experienced trainee: strength, rotational athleticism, mobility and recovery held in balance — designed to be used in the gym at 6am and finished feeling capable of more.</p>
+    <div class="chips">
+      <span class="chip">18 years training experience</span>
+      <span class="chip">45–60 min sessions</span>
+      <span class="chip">Early mornings</span>
+      <span class="chip">One run weekly, Saturday</span>
+      <span class="chip">Yoga weekly</span>
+      <span class="chip">Sunday nervous system reset</span>
+    </div>
+  </div>
 </div>
 
+<div class="wrap">
+
+  <section id="philosophy">
+    <div class="section-head"><h2>Training philosophy</h2><span class="tag">Why the programme is built this way</span></div>
+    <p class="philosophy-lede">Do not chase exhaustion. Chase high-quality performance.</p>
+    <p style="max-width:58ch;font-size:15.5px;color:var(--ink-soft);">The goal is to finish most sessions feeling trained, not destroyed. Every week balances strength and athletic output against genuine recovery, so training stays consistent for years rather than weeks.</p>
+    <div class="pillars">
+      <div class="pillar">Strength</div>
+      <div class="pillar">Athletic movement</div>
+      <div class="pillar">Mobility</div>
+      <div class="pillar">Power</div>
+      <div class="pillar">Unilateral strength</div>
+      <div class="pillar">Rotational control</div>
+      <div class="pillar">Anti-rotation</div>
+      <div class="pillar">Loaded carries</div>
+      <div class="pillar">Aerobic fitness</div>
+      <div class="pillar">Yoga</div>
+      <div class="pillar">Nervous system recovery</div>
+    </div>
+  </section>
+
+  <section id="overview" class="on-paper-deep">
+    <div class="section-head"><h2>The week at a glance</h2><span class="tag">Mon–Sun</span></div>
+    <p class="overview-hint">Tap a day to expand it below.</p>
+    <div class="week-grid">
+      <div class="week-card" data-select="mon" role="button" tabindex="0"><span class="day-name">Monday</span><div class="focus">Lower Body Strength</div><div class="dur">50–60 min</div></div>
+      <div class="week-card" data-select="tue" role="button" tabindex="0"><span class="day-name">Tuesday</span><div class="focus">Upper A — Pull + Rotation</div><div class="dur">50–60 min</div></div>
+      <div class="week-card recovery" data-select="wed" role="button" tabindex="0"><span class="day-name">Wednesday</span><div class="focus">Yoga + Mobility + Walk</div><div class="dur">45–60 min</div></div>
+      <div class="week-card" data-select="thu" role="button" tabindex="0"><span class="day-name">Thursday</span><div class="focus">Lower Body Athletic + Power</div><div class="dur">50–60 min</div></div>
+      <div class="week-card" data-select="fri" role="button" tabindex="0"><span class="day-name">Friday</span><div class="focus">Upper B — Back + Anti-Rotation</div><div class="dur">45–60 min</div></div>
+      <div class="week-card run" data-select="sat" role="button" tabindex="0"><span class="day-name">Saturday</span><div class="focus">Run Day</div><div class="dur">45–60 min</div></div>
+      <div class="week-card reset" data-select="sun" role="button" tabindex="0"><span class="day-name">Sunday</span><div class="focus">Nervous System Reset</div><div class="dur">No targets, no pressure</div></div>
+    </div>
+  </section>
+
+  <section id="monday">
+    <div class="day type-strength collapsed" data-day="mon">
+      <div class="day-header">
+        <div><span class="day-label">Monday</span><h3>Lower Body Strength</h3><span class="progress-indicator" data-progress="mon"></span></div>
+        <div class="duration">50–60 minutes <span class="chevron">⌄</span></div>
+      </div>
+      <div class="day-body">
+        <p class="day-intent">Build lower-body strength with minimal unnecessary fatigue.</p>
+
+        <div class="block-title">Warm-up — 8–10 minutes</div>
+        <ul class="check-list" data-checklist="mon-warm">
+          <li><span class="item-text">3 minutes incline walk or easy bike</span></li>
+          <li><span class="item-text">Hip 90/90s</span></li>
+          <li><span class="item-text">World's Greatest Stretch</span></li>
+          <li><span class="item-text">Glute bridges</span></li>
+          <li><span class="item-text">Bodyweight squats</span></li>
+          <li><span class="item-text">Ankle mobility</span></li>
+          <li><span class="item-text">Progressive warm-up sets before the main lift</span></li>
+        </ul>
+
+        <div class="block-title">Main training</div>
+        <table class="lift">
+          <tr><th>Exercise</th><th>Sets × Reps</th><th>Log</th><th>Notes</th></tr>
+          <tr><td class="exname">Trap bar deadlift</td><td class="num">5 × 3</td><td class="log-cell" data-sets="mon-deadlift:5"></td><td class="note">RPE 7 · rest ~2–3 min</td></tr>
+          <tr><td class="exname">Front squat</td><td class="num">4 × 5</td><td class="log-cell" data-sets="mon-frontsquat:4"></td><td class="note">Controlled, technically clean · rest ~2 min</td></tr>
+          <tr><td class="exname">Bulgarian split squat</td><td class="num">3 × 8 / leg</td><td class="log-cell" data-sets="mon-bulgarian:3"></td><td class="note">—</td></tr>
+          <tr><td class="exname">Hamstring curl</td><td class="num">3 × 10</td><td class="log-cell" data-sets="mon-hamcurl:3"></td><td class="note">—</td></tr>
+          <tr><td class="exname">Suitcase carry</td><td class="num">3 × 30–40m / side</td><td class="log-cell" data-sets="mon-suitcase:3"></td><td class="note">—</td></tr>
+        </table>
+
+        <div class="block-title">Finisher — Kettlebell Complex</div>
+        <table class="lift">
+          <tr><th>Exercise</th><th>Sets × Reps</th><th>Log</th><th>Notes</th></tr>
+          <tr><td class="exname">Kettlebell swing</td><td class="num">3 × 12–15</td><td class="log-cell" data-sets="mon-kb-swing:3"></td><td class="note">Explosive hip hinge, not a squat</td></tr>
+          <tr><td class="exname">Goblet squat</td><td class="num">2 × 10</td><td class="log-cell" data-sets="mon-kb-squat:2"></td><td class="note">Elbows inside knees at the bottom</td></tr>
+          <tr><td class="exname">Single-arm kettlebell swing <span style="font-weight:400;color:var(--ink-soft);">(optional)</span></td><td class="num">2 × 8 / side</td><td class="log-cell" data-sets="mon-kb-single:2"></td><td class="note">Only if recovered and feeling fresh</td></tr>
+        </table>
+        <div class="note-box">Short conditioning finisher — keep quality high and stop before form breaks down, not a grind to failure.</div>
+
+        <div class="block-title">Finish — 5–8 minutes mobility</div>
+        <ul class="check-list" data-checklist="mon-finish">
+          <li><span class="item-text">Couch stretch</span></li>
+          <li><span class="item-text">Hip flexor mobility</span></li>
+          <li><span class="item-text">Deep squat hold</span></li>
+          <li><span class="item-text">Ankle mobility as required</span></li>
+        </ul>
+
+        <div class="lunch-block">
+          <div class="lunch-label">Today's lunch</div>
+          <div class="dish-name">Lemon chicken quinoa bowl</div>
+          <div class="dish-items">Chicken, quinoa, roasted carrots, courgette, baby spinach, pumpkin seeds, olive oil &amp; lemon dressing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tuesday" class="on-paper-deep">
+    <div class="day type-strength collapsed" data-day="tue">
+      <div class="day-header">
+        <div><span class="day-label">Tuesday · Upper Day A</span><h3>Athletic Pull + Rotation</h3><span class="progress-indicator" data-progress="tue"></span></div>
+        <div class="duration">50–60 minutes <span class="chevron">⌄</span></div>
+      </div>
+      <div class="day-body">
+        <p class="day-intent">Rotation is the primary trunk quality today. Keep anti-rotation controlled and technical rather than fatiguing.</p>
+
+        <div class="block-title">Warm-up — 7–8 minutes</div>
+        <ul class="check-list" data-checklist="tue-warm">
+          <li><span class="item-text">Shoulder CARs</span></li>
+          <li><span class="item-text">Thoracic rotations</span></li>
+          <li><span class="item-text">Scapular pull-ups</span></li>
+          <li><span class="item-text">Light kettlebell halos</span></li>
+          <li><span class="item-text">Progressive pull-up warm-up sets</span></li>
+        </ul>
+
+        <div class="block-title">Main training</div>
+        <table class="lift">
+          <tr><th>Exercise</th><th>Sets × Reps</th><th>Log</th><th>Notes</th></tr>
+          <tr><td class="exname">Pull-ups (or assisted)</td><td class="num">3–4 × 5–8</td><td class="log-cell" data-sets="tue-pullup:4"></td><td class="note">Rest 90–120 sec</td></tr>
+          <tr><td class="exname">Single-arm KB row</td><td class="num">3 × 8–10 / side</td><td class="log-cell" data-sets="tue-row:3"></td><td class="note">Pair with the press below to save time</td></tr>
+          <tr><td class="exname">Half-kneeling single-arm KB press</td><td class="num">3 × 6–8 / side</td><td class="log-cell" data-sets="tue-press:3"></td><td class="note">—</td></tr>
+          <tr><td class="exname">Cable wood chop</td><td class="num">3 × 8–12 / side</td><td class="log-cell" data-sets="tue-woodchop:3"></td><td class="note">Rotate through the upper back and hips, don't just pull with the arms</td></tr>
+          <tr><td class="exname">Kettlebell swing</td><td class="num">4 × 10–15</td><td class="log-cell" data-sets="tue-swing:4"></td><td class="note">Explosive hip hinge, not a squat · rest ~60–90 sec</td></tr>
+          <tr><td class="exname">Pallof press with hold</td><td class="num">2–3 × 8–10 / side</td><td class="log-cell" data-sets="tue-pallof:3"></td><td class="note">Pause 2–3 sec every rep</td></tr>
+          <tr><td class="exname">Suitcase carry</td><td class="num">2–3 × 30–40m / side</td><td class="log-cell" data-sets="tue-suitcase:3"></td><td class="note">—</td></tr>
+        </table>
+
+        <div class="lunch-block">
+          <div class="lunch-label">Today's lunch</div>
+          <div class="dish-name">Salmon + sweet potato</div>
+          <div class="dish-items">Baked salmon, sweet potato, green beans, rocket, extra virgin olive oil</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="wednesday">
+    <div class="day type-recovery collapsed" data-day="wed">
+      <div class="day-header">
+        <div><span class="day-label">Wednesday</span><h3>Yoga + Recovery</h3><span class="progress-indicator" data-progress="wed"></span></div>
+        <div class="duration">45–60 minutes <span class="chevron">⌄</span></div>
+      </div>
+      <div class="day-body">
+        <p class="day-intent">Restore movement quality, mobility and body awareness without adding significant training fatigue.</p>
+        <div class="block-title">Primary session — style, if it helps to pick one</div>
+        <ul class="check-list" data-checklist="wed-style">
+          <li><span class="item-text">Slow flow</span></li>
+          <li><span class="item-text">Mobility-focused yoga</span></li>
+          <li><span class="item-text">Hatha</span></li>
+          <li><span class="item-text">Yin, if extra recovery is needed</span></li>
+        </ul>
+        <div class="block-title">Optional / additional recovery</div>
+        <ul class="check-list" data-checklist="wed-extra">
+          <li><span class="item-text">20–30 minute relaxed walk outside</span></li>
+          <li><span class="item-text">5–10 minutes diaphragmatic breathing</span></li>
+        </ul>
+
+        <div class="lunch-block">
+          <div class="lunch-label">Today's lunch</div>
+          <div class="dish-name">Turkey ginger rice bowl</div>
+          <div class="dish-items">Turkey mince, white or jasmine rice, spinach, carrots, fresh ginger, sesame seeds</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="thursday" class="on-paper-deep">
+    <div class="day type-strength collapsed" data-day="thu">
+      <div class="day-header">
+        <div><span class="day-label">Thursday</span><h3>Lower Body Athletic + Power</h3><span class="progress-indicator" data-progress="thu"></span></div>
+        <div class="duration">50–60 minutes <span class="chevron">⌄</span></div>
+      </div>
+      <div class="day-body">
+        <p class="day-intent">Develop athletic lower-body strength and power without soreness that interferes with Saturday's run.</p>
+
+        <div class="block-title">Warm-up — 8–10 minutes</div>
+        <ul class="check-list" data-checklist="thu-warm">
+          <li><span class="item-text">Easy bike or walk</span></li>
+          <li><span class="item-text">Hip mobility</span></li>
+          <li><span class="item-text">Ankle mobility</span></li>
+          <li><span class="item-text">Glute activation</span></li>
+          <li><span class="item-text">Progressive squat warm-up sets</span></li>
+        </ul>
+
+        <div class="block-title">Main training</div>
+        <table class="lift">
+          <tr><th>Exercise</th><th>Sets × Reps</th><th>Log</th><th>Notes</th></tr>
+          <tr><td class="exname">Back squat</td><td class="num">5 × 5</td><td class="log-cell" data-sets="thu-backsquat:5"></td><td class="note">Controlled, strong — don't grind reps unnecessarily</td></tr>
+          <tr><td class="exname">Romanian deadlift</td><td class="num">3 × 8</td><td class="log-cell" data-sets="thu-rdl:3"></td><td class="note">—</td></tr>
+          <tr><td class="exname">Hip thrust</td><td class="num">3 × 10</td><td class="log-cell" data-sets="thu-hipthrust:3"></td><td class="note">Full hip extension, pause and squeeze at the top</td></tr>
+          <tr><td class="exname">Pallof press</td><td class="num">3 × 10–12 / side</td><td class="log-cell" data-sets="thu-pallof:3"></td><td class="note">—</td></tr>
+          <tr><td class="exname">Heavy farmer carry</td><td class="num">3 rounds</td><td class="log-cell" data-sets="thu-farmer:3"></td><td class="note">—</td></tr>
+        </table>
+
+        <div class="block-title">Finisher — Sprints</div>
+        <table class="lift">
+          <tr><th>Exercise</th><th>Sets × Reps</th><th>Log</th><th>Notes</th></tr>
+          <tr><td class="exname">Sprints (assault runner)</td><td class="num">5 × 15–20 sec</td><td class="log-cell" data-sets="thu-sprint:5"></td><td class="note">All-out effort · full recovery ~90 sec between reps · skip if legs feel heavy from the lifts</td></tr>
+        </table>
+
+        <div class="block-title">Finish — 5–10 minutes</div>
+        <ul class="check-list" data-checklist="thu-finish">
+          <li><span class="item-text">Hip mobility</span></li>
+          <li><span class="item-text">Hamstring mobility</span></li>
+          <li><span class="item-text">Ankle mobility</span></li>
+        </ul>
+
+        <div class="lunch-block">
+          <div class="lunch-label">Today's lunch</div>
+          <div class="dish-name">Mediterranean chicken bowl</div>
+          <div class="dish-items">Chicken thighs or breast, rice, roasted peppers if tolerated, cucumber, feta, extra virgin olive oil</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="friday">
+    <div class="day type-strength collapsed" data-day="fri">
+      <div class="day-header">
+        <div><span class="day-label">Friday · Upper Day B</span><h3>Back + Anti-Rotation + Stability</h3><span class="progress-indicator" data-progress="fri"></span></div>
+        <div class="duration">45–60 minutes <span class="chevron">⌄</span></div>
+      </div>
+      <div class="day-body">
+        <p class="day-intent">Build back strength, trunk stability and shoulder resilience. No heavy wood chops today.</p>
+
+        <div class="block-title">Warm-up — ~7 minutes</div>
+        <ul class="check-list" data-checklist="fri-warm">
+          <li><span class="item-text">Thoracic rotations</span></li>
+          <li><span class="item-text">Band pull-aparts</span></li>
+          <li><span class="item-text">Scapular push-ups</span></li>
+          <li><span class="item-text">Shoulder CARs</span></li>
+          <li><span class="item-text">Light progressive rowing sets</span></li>
+        </ul>
+
+        <div class="block-title">Main training</div>
+        <table class="lift">
+          <tr><th>Exercise</th><th>Sets × Reps</th><th>Log</th><th>Notes</th></tr>
+          <tr><td class="exname">Chest-supported row</td><td class="num">4 × 6–10</td><td class="log-cell" data-sets="fri-row:4"></td><td class="note">—</td></tr>
+          <tr><td class="exname">Neutral-grip pull-up / lat pulldown</td><td class="num">3 × 8–12</td><td class="log-cell" data-sets="fri-pulldown:3"></td><td class="note">—</td></tr>
+          <tr><td class="exname">Push-up variation</td><td class="num">3 × 8–15</td><td class="log-cell" data-sets="fri-pushup:3"></td><td class="note">Leave 1–3 reps in reserve</td></tr>
+          <tr><td class="exname">Single-arm KB floor press</td><td class="num">3 × 8–10 / side</td><td class="log-cell" data-sets="fri-floorpress:3"></td><td class="note">Unilateral load forces the trunk to resist rotation while pressing</td></tr>
+          <tr><td class="exname">Cable anti-rotation press / Pallof walkout</td><td class="num">3 × 6–10 / side</td><td class="log-cell" data-sets="fri-antirot:3"></td><td class="note"><strong>Primary trunk emphasis today</strong></td></tr>
+          <tr><td class="exname">KB front-rack carry</td><td class="num">3 × 20–30m / side</td><td class="log-cell" data-sets="fri-carry:3"></td><td class="note">—</td></tr>
+          <tr><td class="exname">Dead bug with full exhale</td><td class="num">2–3 × 6–8 / side</td><td class="log-cell" data-sets="fri-deadbug:3"></td><td class="note">—</td></tr>
+        </table>
+
+        <div class="lunch-block">
+          <div class="lunch-label">Today's lunch</div>
+          <div class="dish-name">Slow-cooked beef bowl</div>
+          <div class="dish-items">Lean beef, sweet potato mash, steamed carrots, wilted spinach</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="saturday" class="on-paper-deep">
+    <div class="day type-run collapsed" data-day="sat">
+      <div class="day-header">
+        <div><span class="day-label">Saturday</span><h3>Run Day</h3><span class="progress-indicator" data-progress="sat"></span></div>
+        <div class="duration">45–60 minutes <span class="chevron">⌄</span></div>
+      </div>
+      <div class="day-body">
+        <p class="day-intent">Cardiovascular fitness and enjoyment — not accumulating unnecessary fatigue.</p>
+        <table class="lift">
+          <tr><th>Week</th><th>Session</th><th>Log</th><th>Notes</th></tr>
+          <tr><td class="exname">Week 1</td><td>Easy zone 2 — ~6km</td><td class="log-cell" data-sets="sat-wk1:1"></td><td class="note">Comfortably conversational pace</td></tr>
+          <tr><td class="exname">Week 2</td><td>Hill session</td><td class="log-cell" data-sets="sat-wk2:1"></td><td class="note">6–8 short hill efforts, walk/jog back for full recovery, 45–60 min total</td></tr>
+          <tr><td class="exname">Week 3</td><td>Steady run — ~8km</td><td class="log-cell" data-sets="sat-wk3:1"></td><td class="note">Comfortably hard but controlled</td></tr>
+          <tr><td class="exname">Week 4</td><td>Long easy run — ~8–10km</td><td class="log-cell" data-sets="sat-wk4:1"></td><td class="note">Keep the pace easy</td></tr>
+        </table>
+        <p style="font-size:13.5px;color:var(--ink-soft);margin-top:12px;">Repeat the rotation, adjusting distance and difficulty gradually according to recovery and progress. Tick off whichever week of the rotation you've just run.</p>
+
+        <div class="lunch-block">
+          <div class="lunch-label">Today's lunch</div>
+          <div class="dish-name">Prawn rice salad</div>
+          <div class="dish-items">King prawns, jasmine rice, cucumber, lettuce, avocado, lime dressing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="sunday">
+    <div class="day type-reset collapsed" data-day="sun">
+      <div class="day-header">
+        <div><span class="day-label">Sunday</span><h3>Nervous System Reset</h3><span class="progress-indicator" data-progress="sun"></span></div>
+        <div class="duration">No performance targets <span class="chevron">⌄</span></div>
+      </div>
+      <div class="day-body">
+        <p class="day-intent">Not a training day. No performance targets, no required intensity, and nothing to "earn."</p>
+
+        <div class="block-title">Morning</div>
+        <ul class="check-list" data-checklist="sun-morning">
+          <li><span class="item-text">Sleep without an alarm where practical</span></li>
+          <li><span class="item-text">Avoid the phone for the first 30–60 minutes if possible</span></li>
+          <li><span class="item-text">Get outside for 15–20 minutes of natural daylight</span></li>
+        </ul>
+
+        <div class="block-title">Movement</div>
+        <ul class="check-list" data-checklist="sun-movement">
+          <li><span class="item-text">30–60 minute relaxed walk, ideally outdoors or in nature</span></li>
+          <li><span class="item-text">Easy enough to maintain relaxed breathing</span></li>
+        </ul>
+
+        <div class="block-title">Restorative movement — choose one</div>
+        <ul class="check-list" data-checklist="sun-restorative">
+          <li><span class="item-text">20–30 minutes restorative yoga</span></li>
+          <li><span class="item-text">Gentle mobility</span></li>
+          <li><span class="item-text">Easy stretching</span></li>
+        </ul>
+
+        <div class="block-title">Nervous system regulation — 10–15 minutes</div>
+        <ul class="check-list" data-checklist="sun-regulation">
+          <li><span class="item-text">Slow breathing with a longer exhale</span></li>
+          <li><span class="item-text">Physiological sighs</span></li>
+          <li><span class="item-text">Guided yoga nidra</span></li>
+          <li><span class="item-text">Body scan meditation</span></li>
+        </ul>
+
+        <div class="block-title">Evening wind-down</div>
+        <ul class="check-list" data-checklist="sun-evening">
+          <li><span class="item-text">Dim lights 1–2 hours before bed</span></li>
+          <li><span class="item-text">Read, journal or listen to calming music</span></li>
+          <li><span class="item-text">Reduce unnecessary stimulation</span></li>
+          <li><span class="item-text">Don't let Sunday evening become a stressful prep period for Monday</span></li>
+        </ul>
+
+        <div class="lunch-block">
+          <div class="lunch-label">Today's lunch</div>
+          <div class="dish-name">Roast chicken lunch</div>
+          <div class="dish-items">Roast chicken, baby potatoes, green beans, mixed vegetables, extra virgin olive oil dressing</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="movement-logic" class="on-paper-deep">
+    <div class="section-head"><h2>Upper body movement logic</h2><span class="tag">How Tuesday and Friday connect</span></div>
+    <div class="flow">
+      <div class="flow-step"><div class="arrow">↓</div><div><div class="label">Generate force</div><div class="via">Kettlebell swings and unilateral presses</div></div></div>
+      <div class="flow-step"><div class="arrow">↓</div><div><div class="label">Control rotation</div><div class="via">Cable wood chops</div></div></div>
+      <div class="flow-step"><div class="arrow">↓</div><div><div class="label">Resist rotation</div><div class="via">Pallof presses and Pallof walkouts</div></div></div>
+      <div class="flow-step"><div class="arrow">↓</div><div><div class="label">Resist side-bending</div><div class="via">Suitcase carries</div></div></div>
+      <div class="flow-step"><div class="arrow">↓</div><div><div class="label">Integrate the trunk under load</div><div class="via">Unilateral pressing and front-rack carries</div></div></div>
+      <div class="flow-step"><div class="arrow">↓</div><div><div class="label">Build back strength and shoulder resilience</div><div class="via">Pull-ups, rows and controlled pressing</div></div></div>
+    </div>
+    <p style="font-size:14px;color:var(--ink-soft);margin-top:18px;max-width:60ch;"><strong style="color:var(--ink);">Programming rule:</strong> rotational and anti-rotational work are never overloaded in the same session. The aim is high-quality trunk training, not fatigue-driven core work.</p>
+    <div class="split-note">
+      <div class="card"><h4>Tuesday</h4><p>Rotation is the primary focus. Anti-rotation is lower volume and technical.</p></div>
+      <div class="card"><h4>Friday</h4><p>Anti-rotation and stability are the primary focus. No heavy rotational chopping work.</p></div>
+    </div>
+  </section>
+
+  <section id="progression">
+    <div class="section-head"><h2>Progression &amp; deload</h2><span class="tag">4-week wave</span></div>
+    <div class="wave">
+      <div class="wave-week"><div class="wk">Week 1</div><div class="rpe">RPE 7</div><p>Establish baseline working loads.</p></div>
+      <div class="wave-week"><div class="wk">Week 2</div><div class="rpe">RPE 7–8</div><p>Increase load slightly or add reps where appropriate.</p></div>
+      <div class="wave-week"><div class="wk">Week 3</div><div class="rpe">RPE 8</div><p>Hardest week. Avoid unnecessary grinding or repeated failure.</p></div>
+      <div class="wave-week deload"><div class="wk">Week 4</div><div class="rpe">Deload</div><p>Cut volume ~40–50%. Lighter loads, easy run, drop hill intervals.</p></div>
+    </div>
+    <p style="font-size:14px;color:var(--ink-soft);margin-top:16px;max-width:60ch;">After the deload, begin the next wave with slightly improved baseline loads where appropriate. Add load only when the current target can be completed with good technique and within the intended RPE range — never simply because the calendar says to.</p>
+  </section>
+
+  <section id="structure" class="on-paper-deep">
+    <div class="section-head"><h2>Inside a 45–60 minute session</h2><span class="tag">Time allocation</span></div>
+    <table class="structure">
+      <tr><th>Block</th><th>Time</th><th></th></tr>
+      <tr><td>Warm-up &amp; movement prep</td><td class="num">8–10 min</td><td><div class="bar-wrap"><div class="bar" style="width:16%;"></div></div></td></tr>
+      <tr><td>Primary lift</td><td class="num">12–18 min</td><td><div class="bar-wrap"><div class="bar" style="width:28%;"></div></div></td></tr>
+      <tr><td>Secondary lift</td><td class="num">8–12 min</td><td><div class="bar-wrap"><div class="bar" style="width:18%;"></div></div></td></tr>
+      <tr><td>Accessories</td><td class="num">12–18 min</td><td><div class="bar-wrap"><div class="bar" style="width:28%;"></div></div></td></tr>
+      <tr><td>Carries / trunk work</td><td class="num">5–8 min</td><td><div class="bar-wrap"><div class="bar" style="width:11%;"></div></div></td></tr>
+      <tr><td>Mobility / cool-down</td><td class="num">5 min</td><td><div class="bar-wrap"><div class="bar" style="width:9%;"></div></div></td></tr>
+    </table>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:14px;">Target: most sessions finish around 50–55 minutes, 60 as the upper limit. Use sensible pairings for non-competing exercises — but don't turn strength training into a rushed circuit.</p>
+  </section>
+
+  <section id="recovery">
+    <div class="section-head"><h2>Morning training &amp; recovery</h2><span class="tag">Daily practice</span></div>
+    <div class="split-note">
+      <div class="card">
+        <h4>Before training</h4>
+        <p>Hydrate. Consider a light carbohydrate source if helpful. Caffeine is optional, per personal tolerance.</p>
+      </div>
+      <div class="card">
+        <h4>After training</h4>
+        <p>Prioritise a substantial meal with protein and carbohydrate within the next few hours.</p>
+      </div>
+    </div>
+    <div class="block-title" style="margin-top:26px;">Daily recovery priorities</div>
+    <ul class="plain">
+      <li>Sleep: aim for approximately 7.5–9 hours where possible</li>
+      <li>Avoid taking every set to failure — use RPE to regulate effort</li>
+      <li>Adjust volume if sleep, recovery or performance is clearly declining</li>
+      <li>Keep Wednesday genuinely restorative</li>
+      <li>Protect Sunday as a low-stimulation recovery day</li>
+    </ul>
+    <div class="note-box"><strong>Final 5 minutes of gym sessions:</strong> a deliberate downshift — gentle stretching, slow breathing, a longer exhale than inhale. Avoid rushing straight from maximal intensity into the rest of the day where possible.</div>
+  </section>
+
+  <section id="lunch" class="on-paper-deep">
+    <div class="section-head"><h2>Eating principles</h2><span class="tag">Behind each day's lunch</span></div>
+    <p style="font-size:14px;color:var(--ink-soft);max-width:60ch;">Aim for approximately 25–35g or more of protein per lunch, depending on total daily requirements.</p>
+    <div class="principles-list">
+      <div class="p-item">Adequate protein</div>
+      <div class="p-item">Carbohydrates to support training and recovery</div>
+      <div class="p-item">Colourful fruit and vegetables</div>
+      <div class="p-item">Healthy fats</div>
+      <div class="p-item">Foods that are personally well tolerated</div>
+    </div>
+    <p style="font-size:13.5px;color:var(--ink-soft);margin-top:16px;">If raw vegetables cause bloating, prefer cooked vegetables. If fermented dairy is tolerated, Greek yoghurt or kefir can be an additional option. Batch-cook where practical to make weekday lunches easy.</p>
+  </section>
+
+</div>
+
+<div class="closing">
+  <h2>Not maximum exhaustion — maximum useful adaptation.</h2>
+  <p>Train hard when appropriate. Move well. Keep mobility. Run because you enjoy it. Use yoga to restore movement quality. Protect the nervous system reset day. Finish most weeks feeling capable of doing more — not desperate for a break.</p>
+  <div class="sign">12 weeks, built for the years after.</div>
+</div>
+
+<footer>
+  Strong · Mobile · Athletic — 12-Week Performance &amp; Longevity Programme<br>
+  <a href="#" id="clear-week" style="color:var(--ink-soft);">Clear this week's ticks</a>
+</footer>
+
 <script>
-const STORAGE_KEY = 'sm-tracker-state-v1';
+(function(){
+  var STORAGE_PREFIX = 'sma-programme:';
 
-// ---------- DATA ----------
-const WEEK = [
-  { id:'mon', name:'Monday', label:'Lower Strength', time:'58 min', accent:'strength',
-    intent:'Build strength.',
-    sections:[
-      { id:'mon-warm', title:'Warm-up', time:'8 min', kind:'list', items:[
-        {id:'mon-w1', name:'Incline walk', detail:'3 min'},
-        {id:'mon-w2', name:'Hip mobility', detail:'2 min'},
-        {id:'mon-w3', name:'Glute activation', detail:'2 min'},
-        {id:'mon-w4', name:'Squat patterning', detail:'1 min'},
-      ]},
-      { id:'mon-main', title:'Main lift', time:'15 min', kind:'lift', items:[
-        {id:'mon-m1', name:'Trap Bar Deadlift', sets:5, reps:3, min:1, max:8, unit:'reps'},
-      ]},
-      { id:'mon-sec', title:'Secondary lift', time:'10 min', kind:'lift', items:[
-        {id:'mon-s1', name:'Front Squat', sets:4, reps:5, min:1, max:10, unit:'reps'},
-      ]},
-      { id:'mon-acc', title:'Accessory superset', time:'12 min', kind:'lift', items:[
-        {id:'mon-a1', name:'Bulgarian Split Squat', sets:3, reps:8, min:4, max:15, unit:'reps'},
-        {id:'mon-a2', name:'Hamstring Curl', sets:3, reps:10, min:4, max:15, unit:'reps'},
-      ]},
-      { id:'mon-fin', title:'Finisher', time:'8 min', kind:'lift', items:[
-        {id:'mon-f1', name:'Sled Drag (forward, rope pull)', sets:3, reps:20, min:10, max:50, unit:'m'},
-        {id:'mon-f2', name:'Suitcase Carry', sets:3, reps:30, min:10, max:60, unit:'m'},
-      ]},
-      { id:'mon-mob', title:'Mobility / cool-down', time:'5 min', kind:'list', items:[
-        {id:'mon-mo1', name:'Couch stretch', detail:''},
-        {id:'mon-mo2', name:'Hip flexor stretch', detail:''},
-        {id:'mon-mo3', name:'Deep squat hold', detail:''},
-      ]},
-    ]},
+  function key(k){ return STORAGE_PREFIX + k; }
 
-  { id:'tue', name:'Tuesday', label:'Upper Strength', time:'53 min', accent:'strength',
-    intent:'Strong, resilient shoulders and back.',
-    sections:[
-      { id:'tue-warm', title:'Warm-up', time:'8 min', kind:'list', items:[
-        {id:'tue-w1', name:'Band pull-aparts', detail:''},
-        {id:'tue-w2', name:'Scap push-ups', detail:''},
-        {id:'tue-w3', name:'Arm circles', detail:''},
-      ]},
-      { id:'tue-main', title:'Main lift', time:'15 min', kind:'lift', items:[
-        {id:'tue-m1', name:'Pull-ups', sets:5, reps:5, min:1, max:12, unit:'reps'},
-      ]},
-      { id:'tue-sec', title:'Secondary lift', time:'10 min', kind:'lift', items:[
-        {id:'tue-s1', name:'Incline DB Press', sets:4, reps:6, min:2, max:12, unit:'reps'},
-      ]},
-      { id:'tue-acc', title:'Accessory superset', time:'10 min', kind:'lift', items:[
-        {id:'tue-a1', name:'Chest Supported Row', sets:3, reps:10, min:4, max:15, unit:'reps'},
-        {id:'tue-a2', name:'Face Pulls', sets:3, reps:15, min:8, max:25, unit:'reps'},
-      ]},
-      { id:'tue-fin', title:'Finisher', time:'8 min', kind:'lift', items:[
-        {id:'tue-f1', name:'Sled Row (rope pull, standing)', sets:3, reps:20, min:10, max:50, unit:'m'},
-        {id:'tue-f2', name:'Farmer Carries', sets:3, reps:40, min:10, max:80, unit:'m'},
-      ]},
-      { id:'tue-mob', title:'Mobility / cool-down', time:'5 min', kind:'list', items:[
-        {id:'tue-mo1', name:'Thoracic rotations', detail:''},
-        {id:'tue-mo2', name:'Doorway pec stretch', detail:''},
-        {id:'tue-mo3', name:'Wrist mobility', detail:''},
-      ]},
-    ]},
-
-  { id:'wed', name:'Wednesday', label:'Yoga & Mobility', time:'60 min', accent:'recovery',
-    intent:'Increase mobility while allowing recovery.',
-    sections:[
-      { id:'wed-list', title:'Session', time:'~90 min total', kind:'list', items:[
-        {id:'wed-1', name:'Yoga', detail:'60 minutes'},
-        {id:'wed-2', name:'Easy walk', detail:'20 minutes'},
-        {id:'wed-3', name:'Diaphragmatic breathing', detail:'5–10 minutes'},
-        {id:'wed-4', name:'Sauna', detail:'optional'},
-      ]},
-    ]},
-
-  { id:'thu', name:'Thursday', label:'Athletic Lower Body', time:'58 min', accent:'strength',
-    intent:'Athleticism and power.',
-    sections:[
-      { id:'thu-warm', title:'Warm-up', time:'8 min', kind:'list', items:[
-        {id:'thu-w1', name:'Kettlebell swings', detail:'light, 2 sets'},
-        {id:'thu-w2', name:'Leg swings', detail:''},
-        {id:'thu-w3', name:'Pogo hops', detail:''},
-      ]},
-      { id:'thu-main', title:'Main lift', time:'15 min', kind:'lift', items:[
-        {id:'thu-m1', name:'Back Squat', sets:5, reps:3, min:1, max:8, unit:'reps'},
-      ]},
-      { id:'thu-sec', title:'Secondary lift', time:'10 min', kind:'lift', items:[
-        {id:'thu-s1', name:'Romanian Deadlift', sets:4, reps:6, min:2, max:12, unit:'reps'},
-      ]},
-      { id:'thu-acc', title:'Accessory superset', time:'12 min', kind:'lift', items:[
-        {id:'thu-a1', name:'Walking Lunges', sets:3, reps:12, min:6, max:20, unit:'reps/leg'},
-        {id:'thu-a2', name:'Pallof Press', sets:3, reps:10, min:5, max:15, unit:'reps/side'},
-      ]},
-      { id:'thu-fin', title:'Finisher', time:'8 min', kind:'lift', items:[
-        {id:'thu-f1', name:'Sled Drag (backward, rope pull)', sets:3, reps:20, min:10, max:50, unit:'m'},
-        {id:'thu-f2', name:'Heavy Carries', sets:3, reps:30, min:10, max:60, unit:'m'},
-      ]},
-      { id:'thu-mob', title:'Mobility / cool-down', time:'5 min', kind:'list', items:[
-        {id:'thu-mo1', name:'Hip 90/90', detail:''},
-        {id:'thu-mo2', name:'Calf stretch', detail:''},
-        {id:'thu-mo3', name:'Hamstring floss', detail:''},
-      ]},
-    ]},
-
-  { id:'fri', name:'Friday', label:'Upper Athletic', time:'53 min', accent:'strength',
-    intent:'Power and finish with stretching.',
-    sections:[
-      { id:'fri-warm', title:'Warm-up', time:'8 min', kind:'list', items:[
-        {id:'fri-w1', name:'Band work', detail:''},
-        {id:'fri-w2', name:'Rotator cuff activation', detail:''},
-      ]},
-      { id:'fri-main', title:'Main lift', time:'15 min', kind:'lift', items:[
-        {id:'fri-m1', name:'Dumbbell Bench', sets:5, reps:5, min:1, max:12, unit:'reps'},
-      ]},
-      { id:'fri-sec', title:'Secondary lift', time:'10 min', kind:'lift', items:[
-        {id:'fri-s1', name:'Pull-ups', sets:4, reps:6, min:1, max:12, unit:'reps'},
-      ]},
-      { id:'fri-acc', title:'Accessory superset', time:'10 min', kind:'lift', items:[
-        {id:'fri-a1', name:'Cable Row', sets:3, reps:10, min:4, max:15, unit:'reps'},
-        {id:'fri-a2', name:'Lateral Raises', sets:3, reps:15, min:8, max:20, unit:'reps'},
-      ]},
-      { id:'fri-fin', title:'Finisher', time:'8 min', kind:'lift', items:[
-        {id:'fri-f1', name:'Sled Push', sets:3, reps:20, min:10, max:50, unit:'m'},
-        {id:'fri-f2', name:'Hammer Curl + Triceps superset', sets:3, reps:12, min:6, max:20, unit:'reps'},
-      ]},
-      { id:'fri-mob', title:'Mobility / cool-down', time:'5 min', kind:'list', items:[
-        {id:'fri-mo1', name:'Rotator cuff stretch', detail:''},
-        {id:'fri-mo2', name:'Chest opener', detail:''},
-      ]},
-    ]},
-
-  { id:'sat', name:'Saturday', label:'Run Day', time:'45–60 min', accent:'strength',
-    intent:'Rotates weekly — check the 4-week cycle below.',
-    sections:[
-      { id:'sat-list', title:'4-week rotation', time:'', kind:'list', items:[
-        {id:'sat-1', name:'Week 1', detail:'6 km Zone 2'},
-        {id:'sat-2', name:'Week 2', detail:'Hill session'},
-        {id:'sat-3', name:'Week 3', detail:'8 km steady'},
-        {id:'sat-4', name:'Week 4', detail:'10 km easy'},
-      ]},
-      { id:'sat-fin', title:'Finish with', time:'', kind:'list', items:[
-        {id:'sat-f1', name:'Stretching', detail:'10 minutes'},
-        {id:'sat-f2', name:'Rehydrate well', detail:''},
-        {id:'sat-f3', name:'Protein-rich meal', detail:''},
-      ]},
-    ]},
-
-  { id:'sun', name:'Sunday', label:'Nervous System Reset', time:'45–60 min', accent:'reset',
-    intent:'Shift into rest-and-digest so Monday starts recovered, not depleted.',
-    sections:[
-      { id:'sun-morning', title:'Morning', time:'', kind:'list', items:[
-        {id:'sun-m1', name:'Sleep without an alarm', detail:'if possible'},
-        {id:'sun-m2', name:'Delay your phone', detail:'first 30–60 min'},
-        {id:'sun-m3', name:'Natural daylight', detail:'15–20 minutes outside'},
-      ]},
-      { id:'sun-move', title:'Movement', time:'', kind:'list', items:[
-        {id:'sun-mv1', name:'Relaxed walk in nature', detail:'45 minutes, nose-breathing pace'},
-      ]},
-      { id:'sun-recovery', title:'Recovery', time:'', kind:'list', items:[
-        {id:'sun-r1', name:'Restorative yoga or gentle stretching', detail:'20–30 minutes'},
-        {id:'sun-r2', name:'Foam rolling', detail:'only where helpful, no digging in'},
-      ]},
-      { id:'sun-reg', title:'Nervous system regulation', time:'10–15 min', kind:'list', items:[
-        {id:'sun-g1', name:'Box breathing', detail:'inhale 4, hold 4, exhale 4, hold 4'},
-        {id:'sun-g2', name:'Physiological sighs', detail:'two quick inhales, one long exhale'},
-        {id:'sun-g3', name:'Yoga nidra or body scan', detail:'guided'},
-      ]},
-      { id:'sun-nourish', title:'Nourishment', time:'', kind:'list', items:[
-        {id:'sun-n1', name:'Regular, balanced meals', detail:''},
-        {id:'sun-n2', name:'Colourful fruit and veg', detail:''},
-        {id:'sun-n3', name:'Stay well hydrated', detail:''},
-        {id:'sun-n4', name:'Limit alcohol', detail:'if possible'},
-      ]},
-      { id:'sun-wind', title:'Evening wind-down', time:'', kind:'list', items:[
-        {id:'sun-e1', name:'Dim lights', detail:'1–2 hours before bed'},
-        {id:'sun-e2', name:'Read, journal or calm music', detail:''},
-        {id:'sun-e3', name:'Avoid high-stimulation activity', detail:''},
-      ]},
-    ]},
-];
-
-// ---------- STATE ----------
-let state = { order:{}, reps:{}, completed:{} };
-let currentDay = null;
-
-// Works inside the Claude artifact preview (window.storage) AND once deployed
-// standalone on GitHub Pages, where window.storage won't exist and we fall
-// back to localStorage. Same data shape either way.
-const hasClaudeStorage = typeof window.storage !== 'undefined';
-
-async function storageGet(key){
-  if(hasClaudeStorage){
-    try{ return await window.storage.get(key); }catch(e){ return null; }
+  function loadState(k){
+    try { return localStorage.getItem(key(k)) === '1'; }
+    catch(e){ return false; }
   }
-  try{
-    const v = localStorage.getItem(key);
-    return v ? { value: v } : null;
-  }catch(e){ return null; } // e.g. localStorage blocked/private mode
-}
-async function storageSet(key, value){
-  if(hasClaudeStorage){
-    try{ return await window.storage.set(key, value); }catch(e){ return null; }
+  function saveState(k, val){
+    try { localStorage.setItem(key(k), val ? '1' : '0'); }
+    catch(e){ /* storage unavailable, log still works for this session */ }
   }
-  try{ localStorage.setItem(key, value); }catch(e){ /* storage unavailable */ }
-}
 
-async function loadState(){
-  const res = await storageGet(STORAGE_KEY);
-  if(res && res.value){
-    try{
-      const parsed = JSON.parse(res.value);
-      state = Object.assign({order:{},reps:{},completed:{}}, parsed);
-    }catch(e){ /* corrupt saved state, keep defaults */ }
-  }
-}
-let saveTimer = null;
-function saveState(){
-  clearTimeout(saveTimer);
-  saveTimer = setTimeout(()=>{ storageSet(STORAGE_KEY, JSON.stringify(state)); }, 250);
-}
-
-function getOrder(sectionId, defaultIds){
-  return state.order[sectionId] || defaultIds;
-}
-function getReps(itemId, def){
-  return state.reps[itemId] != null ? state.reps[itemId] : def;
-}
-function todayKey(){
-  const d = new Date();
-  return d.toISOString().slice(0,10);
-}
-function isDoneToday(dayId){
-  const k = todayKey();
-  return !!(state.completed[k] && state.completed[k][dayId]);
-}
-function toggleDone(dayId){
-  const k = todayKey();
-  if(!state.completed[k]) state.completed[k] = {};
-  state.completed[k][dayId] = !state.completed[k][dayId];
-  saveState();
-}
-function completionCount(){
-  let n = 0;
-  Object.values(state.completed).forEach(day => { n += Object.values(day).filter(Boolean).length; });
-  return n;
-}
-
-// ---------- RENDER ----------
-const ACCENT_VAR = { strength:'--strength', recovery:'--recovery', reset:'--reset' };
-const ACCENT_FILL = { strength:'--strength-pastel', recovery:'--recovery-pastel', reset:'--reset-pastel' };
-
-function renderPulse(){
-  const el = document.getElementById('pulse');
-  el.innerHTML = '';
-  const heights = { mon:44, tue:38, wed:24, thu:44, fri:36, sat:30, sun:12 };
-  WEEK.forEach((day, idx) => {
-    const isActive = day.id === currentDay;
-    const done = isDoneToday(day.id);
-    const btn = document.createElement('button');
-    btn.setAttribute('role','tab');
-    btn.setAttribute('id', `tab-${day.id}`);
-    btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
-    btn.setAttribute('aria-controls', 'main');
-    btn.setAttribute('tabindex', isActive ? '0' : '-1');
-    btn.setAttribute('aria-label', `${day.name}, ${day.label}${done ? ', completed today' : ''}`);
-    btn.className = isActive ? 'active' : '';
-    btn.innerHTML = `
-      <span class="dayname" aria-hidden="true">${day.name.slice(0,3)}</span>
-      <span class="bar" aria-hidden="true"><i style="height:${heights[day.id]}px;background:var(${ACCENT_FILL[day.accent]})"></i></span>
-      <span class="dot ${done?'done':''}" aria-hidden="true"></span>
-    `;
-    btn.addEventListener('click', ()=>{ currentDay = day.id; renderPulse(); renderDay(true); });
-    btn.addEventListener('keydown', e=>{
-      let target = idx;
-      if(e.key === 'ArrowRight') target = (idx+1) % WEEK.length;
-      else if(e.key === 'ArrowLeft') target = (idx-1+WEEK.length) % WEEK.length;
-      else if(e.key === 'Home') target = 0;
-      else if(e.key === 'End') target = WEEK.length-1;
-      else return;
-      e.preventDefault();
-      currentDay = WEEK[target].id;
-      renderPulse();
-      renderDay();
-      document.getElementById(`tab-${currentDay}`)?.focus();
-    });
-    el.appendChild(btn);
-  });
-}
-
-function renderDay(focusHeading){
-  const day = WEEK.find(d => d.id === currentDay);
-  const main = document.getElementById('main');
-  main.setAttribute('aria-labelledby', `tab-${day.id}`);
-  main.innerHTML = '';
-
-  const titleRow = document.createElement('div');
-  titleRow.className = 'daytitle-row';
-  titleRow.innerHTML = `
-    <h2 class="daytitle">${day.name} <span style="color:var(${ACCENT_VAR[day.accent]})">— ${day.label}</span></h2>
-    <div class="badge">${day.time}</div>
-  `;
-  main.appendChild(titleRow);
-  if(focusHeading) main.focus();
-
-  const intent = document.createElement('div');
-  intent.className = 'intent';
-  intent.textContent = day.intent;
-  main.appendChild(intent);
-
-  day.sections.forEach(section => {
-    const secEl = document.createElement('div');
-    secEl.className = 'section';
-
-    const head = document.createElement('div');
-    head.className = 'section-head';
-    head.innerHTML = `<h3>${section.title}</h3><span class="section-time">${section.time||''}</span>`;
-    secEl.appendChild(head);
-
-    const list = document.createElement('div');
-    list.dataset.sectionId = section.id;
-    list.setAttribute('role', 'list');
-    list.setAttribute('aria-label', section.title);
-
-    const defaultIds = section.items.map(i=>i.id);
-    const order = getOrder(section.id, defaultIds).filter(id => defaultIds.includes(id));
-    defaultIds.forEach(id => { if(!order.includes(id)) order.push(id); });
-    const itemsById = Object.fromEntries(section.items.map(i=>[i.id,i]));
-
-    order.forEach((id, i) => {
-      const it = itemsById[id];
-      const row = document.createElement('div');
-      row.className = 'item';
-      row.draggable = true;
-      row.dataset.id = id;
-      row.setAttribute('role', 'listitem');
-
-      let right = '';
-      if(section.kind === 'lift'){
-        const val = getReps(id, it.reps);
-        right = `
-          <div class="slider-block">
-            <input type="range" min="${it.min}" max="${it.max}" value="${val}"
-              data-item="${id}" data-default="${it.reps}"
-              aria-label="${it.name} target"
-              aria-valuetext="${it.sets} sets of ${val} ${it.unit}">
-            <span class="rep-readout" data-readout="${id}" aria-hidden="true">${it.sets}×${val} ${it.unit}</span>
-          </div>`;
+  // Build per-set checkboxes inside each log-cell
+  document.querySelectorAll('td.log-cell[data-sets]').forEach(function(cell){
+    var parts = cell.getAttribute('data-sets').split(':');
+    var id = parts[0];
+    var count = parseInt(parts[1], 10) || 1;
+    var wrap = document.createElement('div');
+    wrap.className = 'ticks';
+    for (var i = 1; i <= count; i++){
+      var setKey = id + '-' + i;
+      var label = document.createElement('label');
+      label.className = 'tick';
+      var input = document.createElement('input');
+      input.type = 'checkbox';
+      input.setAttribute('data-key', setKey);
+      input.checked = loadState(setKey);
+      label.appendChild(input);
+      if (count > 1){
+        var no = document.createElement('span');
+        no.className = 'set-no';
+        no.textContent = i;
+        label.appendChild(no);
       }
-
-      const atTop = i === 0, atBottom = i === order.length - 1;
-      row.innerHTML = `
-        <div class="reorder-grp">
-          <button type="button" class="reorder-btn" data-move="up" data-section="${section.id}" data-id="${id}"
-            aria-label="Move ${it.name} up" ${atTop ? 'disabled' : ''}>▲</button>
-          <button type="button" class="reorder-btn" data-move="down" data-section="${section.id}" data-id="${id}"
-            aria-label="Move ${it.name} down" ${atBottom ? 'disabled' : ''}>▼</button>
-        </div>
-        <span class="handle" aria-hidden="true"></span>
-        <div class="item-main">
-          <div class="item-name">${it.name}</div>
-          ${it.detail ? `<div class="item-detail">${it.detail}</div>` : ''}
-        </div>
-        ${right}
-      `;
-      list.appendChild(row);
-    });
-
-    secEl.appendChild(list);
-    main.appendChild(secEl);
-    attachDragHandlers(list, section.id);
+      wrap.appendChild(label);
+    }
+    cell.appendChild(wrap);
   });
 
-  main.querySelectorAll('.reorder-btn').forEach(btn=>{
-    btn.addEventListener('click', ()=>{
-      const sectionId = btn.dataset.section;
-      const id = btn.dataset.id;
-      const dir = btn.dataset.move;
-      const listEl = main.querySelector(`[data-section-id="${sectionId}"]`);
-      const ids = Array.from(listEl.querySelectorAll('.item')).map(i=>i.dataset.id);
-      const idx = ids.indexOf(id);
-      const swapWith = dir === 'up' ? idx - 1 : idx + 1;
-      if(swapWith < 0 || swapWith >= ids.length) return;
-      [ids[idx], ids[swapWith]] = [ids[swapWith], ids[idx]];
-      state.order[sectionId] = ids;
-      saveState();
-
-      const name = day.sections.find(s=>s.id===sectionId).items.find(x=>x.id===id).name;
-      announce(`Moved ${name} ${dir}, now position ${swapWith+1} of ${ids.length}`);
-      renderDay();
-      // restore focus to the same button's new position
-      const newBtn = main.querySelector(`.reorder-btn[data-move="${dir}"][data-id="${id}"]`);
-      (newBtn && !newBtn.disabled ? newBtn : main.querySelector(`.reorder-btn[data-id="${id}"]:not(:disabled)`))?.focus();
+  // Build checkboxes for plain checklists (warm-ups, finishers, Sunday reset items)
+  document.querySelectorAll('ul.check-list[data-checklist]').forEach(function(list){
+    var listId = list.getAttribute('data-checklist');
+    var items = list.querySelectorAll('li');
+    items.forEach(function(li, idx){
+      var setKey = listId + '-' + (idx + 1);
+      var label = document.createElement('label');
+      label.className = 'tick';
+      var input = document.createElement('input');
+      input.type = 'checkbox';
+      input.setAttribute('data-key', setKey);
+      input.checked = loadState(setKey);
+      label.appendChild(input);
+      li.insertBefore(label, li.firstChild);
+      li.classList.toggle('done', input.checked);
     });
   });
 
-  if(day.sections.some(s=>s.kind==='lift') || day.id==='sat'){
-    const btn = document.createElement('button');
-    const done = isDoneToday(day.id);
-    btn.className = 'complete-btn' + (done ? ' done' : '');
-    btn.setAttribute('aria-pressed', done ? 'true' : 'false');
-    btn.textContent = done ? '✓ Marked done today' : "Mark today's session done";
-    btn.addEventListener('click', ()=>{
-      toggleDone(day.id);
-      const nowDone = isDoneToday(day.id);
-      announce(nowDone ? `${day.name} marked done` : `${day.name} marked not done`);
-      renderPulse();
-      renderDay();
-    });
-    main.appendChild(btn);
+  function updateRowState(cb){
+    var row = cb.closest('tr');
+    if (row){
+      var boxes = row.querySelectorAll('input[type="checkbox"]');
+      var all = Array.prototype.every.call(boxes, function(b){ return b.checked; });
+      var any = Array.prototype.some.call(boxes, function(b){ return b.checked; });
+      row.classList.toggle('done', all);
+      row.classList.toggle('in-progress', any && !all);
+    }
+    var li = cb.closest('li');
+    if (li){
+      li.classList.toggle('done', cb.checked);
+    }
   }
 
-  main.querySelectorAll('input[type=range]').forEach(slider=>{
-    const sets = slider.getAttribute('aria-valuetext').split(' sets')[0];
-    const unit = slider.getAttribute('aria-valuetext').split(' ').slice(-1)[0];
-    slider.addEventListener('input', e=>{
-      const id = e.target.dataset.item;
-      const val = parseInt(e.target.value,10);
-      state.reps[id] = val;
-      const readout = main.querySelector(`[data-readout="${id}"]`);
-      if(readout) readout.textContent = `${sets}×${val} ${unit}`;
-      e.target.setAttribute('aria-valuetext', `${sets} sets of ${val} ${unit}`);
-      saveState();
+  function updateDayProgress(dayEl){
+    var indicator = dayEl.querySelector('[data-progress]');
+    if (!indicator) return;
+    var boxes = dayEl.querySelectorAll('input[type="checkbox"]');
+    if (!boxes.length) return;
+    var checked = Array.prototype.filter.call(boxes, function(b){ return b.checked; }).length;
+    indicator.textContent = checked + ' / ' + boxes.length + ' logged';
+  }
+
+  // Wire up every checkbox: restore state already applied above; now bind events + initial row/day state
+  document.querySelectorAll('input[type="checkbox"][data-key]').forEach(function(cb){
+    cb.addEventListener('change', function(){
+      saveState(cb.getAttribute('data-key'), cb.checked);
+      updateRowState(cb);
+      var dayEl = cb.closest('[data-day]');
+      if (dayEl) updateDayProgress(dayEl);
     });
-    slider.addEventListener('change', ()=> renderDay());
+    updateRowState(cb);
   });
 
-  updateFooter();
-}
+  document.querySelectorAll('[data-day]').forEach(updateDayProgress);
 
-function attachDragHandlers(listEl, sectionId){
-  let dragEl = null;
-  listEl.querySelectorAll('.item').forEach(item=>{
-    item.addEventListener('dragstart', e=>{
-      dragEl = item;
-      item.classList.add('dragging');
-      e.dataTransfer.effectAllowed = 'move';
-    });
-    item.addEventListener('dragend', ()=>{
-      item.classList.remove('dragging');
-      listEl.querySelectorAll('.item').forEach(i=>i.classList.remove('drag-over'));
-      const newOrder = Array.from(listEl.querySelectorAll('.item')).map(i=>i.dataset.id);
-      state.order[sectionId] = newOrder;
-      saveState();
-    });
-    item.addEventListener('dragover', e=>{
+  var clearLink = document.getElementById('clear-week');
+  if (clearLink){
+    clearLink.addEventListener('click', function(e){
       e.preventDefault();
-      if(item === dragEl) return;
-      item.classList.add('drag-over');
-      const rect = item.getBoundingClientRect();
-      const before = (e.clientY - rect.top) < rect.height/2;
-      listEl.insertBefore(dragEl, before ? item : item.nextSibling);
+      if (!confirm("Clear every tick on this page? This can't be undone.")) return;
+      document.querySelectorAll('input[type="checkbox"][data-key]').forEach(function(cb){
+        cb.checked = false;
+        saveState(cb.getAttribute('data-key'), false);
+        updateRowState(cb);
+      });
+      document.querySelectorAll('[data-day]').forEach(updateDayProgress);
     });
-    item.addEventListener('dragleave', ()=> item.classList.remove('drag-over'));
-    item.addEventListener('drop', e=>{ e.preventDefault(); item.classList.remove('drag-over'); });
+  }
+
+  // ---------- Day selection / expand-collapse ----------
+  var currentOpenDay = null;
+
+  function collapseAllDays(){
+    document.querySelectorAll('.day[data-day]').forEach(function(d){ d.classList.add('collapsed'); });
+    document.querySelectorAll('.week-card[data-select]').forEach(function(p){ p.classList.remove('active'); });
+  }
+
+  function selectDay(dayKey, shouldScroll){
+    var day = document.querySelector('.day[data-day="' + dayKey + '"]');
+    var pill = document.querySelector('.week-card[data-select="' + dayKey + '"]');
+    var reopening = currentOpenDay !== dayKey;
+
+    collapseAllDays();
+
+    if (reopening){
+      if (day) day.classList.remove('collapsed');
+      if (pill) pill.classList.add('active');
+      currentOpenDay = dayKey;
+      if (shouldScroll && day) day.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      currentOpenDay = null;
+    }
+  }
+
+  document.querySelectorAll('.week-card[data-select]').forEach(function(pill){
+    pill.addEventListener('click', function(){
+      selectDay(pill.getAttribute('data-select'), true);
+    });
+    pill.addEventListener('keydown', function(e){
+      if (e.key === 'Enter' || e.key === ' '){
+        e.preventDefault();
+        selectDay(pill.getAttribute('data-select'), true);
+      }
+    });
   });
-}
 
-function announce(msg){
-  const el = document.getElementById('liveRegion');
-  el.textContent = '';
-  // brief delay so repeated identical messages still get announced
-  setTimeout(()=>{ el.textContent = msg; }, 30);
-}
-
-function updateFooter(){
-  const n = completionCount();
-  document.getElementById('footStreak').textContent = `${n} session${n===1?'':'s'} logged done`;
-}
-
-// ---------- INIT ----------
-function defaultDayForToday(){
-  const map = ['sun','mon','tue','wed','thu','fri','sat'];
-  return map[new Date().getDay()];
-}
-
-(async function init(){
-  await loadState();
-  currentDay = defaultDayForToday();
-  renderPulse();
-  renderDay();
+  document.querySelectorAll('.day[data-day] > .day-header').forEach(function(header){
+    header.addEventListener('click', function(){
+      var day = header.closest('.day[data-day]');
+      if (day) selectDay(day.getAttribute('data-day'), false);
+    });
+  });
 })();
 </script>
+
 </body>
 </html>
