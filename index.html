@@ -9,54 +9,22 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Public+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --ink:#1D2521;
-    --ink-soft:#3A4540;
-    --paper:#F6F3EC;
-    --paper-deep:#EEE8DA;
-    --moss:#445540;
-    --moss-dark:#2E3B2B;
-    --moss-pale:#DFE6D9;
-    --bronze:#AD8A4E;
-    --bronze-pale:#EFE3C8;
-    --clay:#A15C42;
-    --clay-pale:#EBDCD3;
-    --line:#D8D0BC;
-    --white:#FFFDF8;
+    --ink:#4A2F3A;
+    --ink-soft:#8C6F7D;
+    --paper:#FAF1E4;
+    --paper-deep:#F2E2CC;
+    --moss:#C66E89;
+    --moss-dark:#9C4C68;
+    --moss-pale:#F6DEE6;
+    --bronze:#C9A06C;
+    --bronze-pale:#F6E8D1;
+    --clay:#9B7FB5;
+    --clay-pale:#EAE0F2;
+    --line:#E8D6CB;
+    --white:#FFFBF6;
     box-sizing:border-box;
     padding-top:env(safe-area-inset-top, 0px);
     padding-bottom:env(safe-area-inset-bottom, 0px);
-  }
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme="light"]){
-      --ink:#F1EEE4;
-      --ink-soft:#C9C2AE;
-      --paper:#14170F;
-      --paper-deep:#1D2118;
-      --moss:#8AB07C;
-      --moss-dark:#5C7A54;
-      --moss-pale:#26301F;
-      --bronze:#D2AF6E;
-      --bronze-pale:#3A2E15;
-      --clay:#D08262;
-      --clay-pale:#3A2418;
-      --line:#3A3A2E;
-      --white:#1B1F19;
-    }
-  }
-  :root[data-theme="dark"]{
-    --ink:#F1EEE4;
-    --ink-soft:#C9C2AE;
-    --paper:#14170F;
-    --paper-deep:#1D2118;
-    --moss:#8AB07C;
-    --moss-dark:#5C7A54;
-    --moss-pale:#26301F;
-    --bronze:#D2AF6E;
-    --bronze-pale:#3A2E15;
-    --clay:#D08262;
-    --clay-pale:#3A2418;
-    --line:#3A3A2E;
-    --white:#1B1F19;
   }
   html{scroll-behavior:smooth;scroll-padding-top:env(safe-area-inset-top, 0px);}
   *{box-sizing:border-box;}
@@ -102,7 +70,7 @@
     margin-top:18px;
     max-width:46ch;
     font-size:17px;
-    color:#DCE4D8;
+    color:#F3E0E8;
   }
   .chips{
     display:flex;
@@ -112,7 +80,7 @@
   }
   .chip{
     border:1px solid rgba(255,255,255,.28);
-    color:#EDE7D6;
+    color:#F6E7ED;
     padding:7px 14px;
     border-radius:100px;
     font-size:13px;
@@ -124,14 +92,16 @@
   section.on-paper-deep{background:var(--paper-deep);}
   .section-head{
     display:flex;
+    flex-wrap:wrap;
     align-items:baseline;
-    gap:14px;
+    gap:6px 14px;
     margin-bottom:22px;
     border-bottom:2px solid var(--ink);
     padding-bottom:12px;
   }
-  .section-head h2{font-size:26px;}
+  .section-head h2{font-size:26px;flex:1 1 auto;min-width:0;}
   .section-head .tag{
+    flex:0 0 auto;
     font-size:12px;
     color:var(--moss);
     font-weight:600;
@@ -164,42 +134,64 @@
     color:var(--ink-soft);
   }
 
-  /* ---------- WEEK OVERVIEW ---------- */
-  .week-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(220px,1fr));
-    gap:12px;
-  }
-  .week-card{
+  /* ---------- WEEK OVERVIEW: DAY STRIP ---------- */
+  .day-strip{
+    display:flex;
     border:1px solid var(--line);
     background:var(--white);
-    padding:16px 16px 14px;
-    border-left:4px solid var(--moss);
+    overflow:hidden;
   }
-  .week-card.recovery{border-left-color:var(--bronze);}
-  .week-card.run{border-left-color:var(--clay);}
-  .week-card.reset{border-left-color:var(--ink);background:var(--ink);}
-  .week-card.reset .day-name,.week-card.reset .focus,.week-card.reset .dur{color:var(--paper);}
-  .week-card .day-name{
+  .day-tab{
+    flex:1 1 0;
+    min-width:0;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:7px;
+    padding:13px 2px 11px;
+    background:none;
+    border:none;
+    border-right:1px solid var(--line);
+    cursor:pointer;
+    font-family:'Public Sans', sans-serif;
+    -webkit-tap-highlight-color:transparent;
+  }
+  .day-tab:last-child{border-right:none;}
+  .day-tab-abbr{
     font-size:12px;
     font-weight:700;
-    letter-spacing:.05em;
-    color:var(--moss);
+    letter-spacing:.03em;
+    color:var(--ink-soft);
     text-transform:uppercase;
   }
-  .week-card.recovery .day-name{color:var(--bronze);}
-  .week-card.run .day-name{color:var(--clay);}
-  .week-card.reset .day-name{color:var(--bronze-pale);}
-  .week-card .focus{
-    font-family:'Fraunces', serif;
-    font-size:17px;
-    margin-top:6px;
-    line-height:1.25;
+  .day-tab-dot{
+    width:7px;
+    height:7px;
+    border-radius:50%;
+    background:var(--moss);
   }
-  .week-card .dur{
-    margin-top:10px;
-    font-size:12.5px;
+  .day-tab.recovery .day-tab-dot{background:var(--bronze);}
+  .day-tab.run .day-tab-dot{background:var(--clay);}
+  .day-tab.reset .day-tab-dot{background:var(--ink);}
+  .day-tab.active{background:var(--moss-pale);}
+  .day-tab.active .day-tab-abbr{color:var(--moss-dark);}
+  .day-tab.recovery.active{background:var(--bronze-pale);}
+  .day-tab.recovery.active .day-tab-abbr{color:#96703D;}
+  .day-tab.run.active{background:var(--clay-pale);}
+  .day-tab.run.active .day-tab-abbr{color:var(--clay);}
+  .day-tab.reset.active{background:var(--ink);}
+  .day-tab.reset.active .day-tab-abbr{color:var(--bronze-pale);}
+  .day-tab:focus-visible{outline:2px solid var(--moss);outline-offset:-2px;}
+  .day-strip-caption{
+    font-size:14px;
     color:var(--ink-soft);
+    margin-top:12px;
+    margin-bottom:0;
+  }
+  .day-strip-caption strong{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    color:var(--ink);
   }
 
   /* ---------- DAY CARD ---------- */
@@ -233,7 +225,7 @@
     display:block;
     margin-bottom:4px;
   }
-  .day.type-recovery .day-label{color:#7A5E28;}
+  .day.type-recovery .day-label{color:#96703D;}
   .day.type-run .day-label{color:var(--clay);}
   .day-header h3{font-size:23px;}
   .duration{font-size:13px;color:var(--ink-soft);white-space:nowrap;}
@@ -254,35 +246,41 @@
     color:var(--moss);
     margin:20px 0 8px;
   }
-  .day.type-recovery .block-title{color:#7A5E28;}
+  .day.type-recovery .block-title{color:#96703D;}
   .day.type-run .block-title{color:var(--clay);}
   ul.plain{margin:0;padding-left:18px;font-size:14.5px;}
   ul.plain li{margin-bottom:4px;}
 
-  table.lift{
-    width:100%;
-    border-collapse:collapse;
+  .exercise-list{
     margin-top:6px;
-    font-size:14.5px;
+    display:flex;
+    flex-direction:column;
   }
-  table.lift th{
-    text-align:left;
-    font-size:11px;
-    letter-spacing:.04em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-    padding:8px 10px;
-    border-bottom:1px solid var(--ink);
-  }
-  table.lift td{
-    padding:10px 10px;
+  .exercise-row{
+    padding:13px 0;
     border-bottom:1px solid var(--line);
-    vertical-align:top;
   }
-  table.lift tr:last-child td{border-bottom:none;}
-  table.lift td.exname{font-weight:600;}
-  table.lift td.note{color:var(--ink-soft);font-size:13.5px;}
-  .num{font-variant-numeric:tabular-nums;white-space:nowrap;}
+  .exercise-row:last-child{border-bottom:none;}
+  .exercise-row-head{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    align-items:baseline;
+    gap:4px 12px;
+  }
+  .exercise-name{font-weight:600;font-size:15px;}
+  .exercise-sets{
+    font-variant-numeric:tabular-nums;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+  .exercise-note{
+    font-size:13px;
+    color:var(--ink-soft);
+    margin-top:6px;
+    line-height:1.45;
+  }
 
   .note-box{
     background:var(--paper-deep);
@@ -351,12 +349,22 @@
   .wave-week.deload .wk{color:var(--bronze-pale);}
   .wave-week .rpe{font-family:'Fraunces',serif;font-size:24px;margin-top:6px;}
   .wave-week p{font-size:13px;margin:8px 0 0;color:var(--ink-soft);}
-  .wave-week.deload p{color:#CFCABE;}
+  .wave-week.deload p{color:#D9C5CE;}
 
   /* ---------- SESSION STRUCTURE ---------- */
-  .structure{width:100%;border-collapse:collapse;font-size:14.5px;margin-top:8px;}
-  .structure td, .structure th{padding:9px 10px;border-bottom:1px solid var(--line);}
-  .structure th{text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--ink-soft);}
+  .structure-list{margin-top:8px;}
+  .structure-row{padding:10px 0;border-bottom:1px solid var(--line);}
+  .structure-row:last-child{border-bottom:none;}
+  .structure-row-head{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:4px 12px;
+    font-size:14.5px;
+    margin-bottom:6px;
+  }
+  .structure-name{color:var(--ink);}
+  .structure-time{font-variant-numeric:tabular-nums;color:var(--ink-soft);white-space:nowrap;}
   .bar-wrap{background:var(--paper-deep);height:8px;width:100%;position:relative;}
   .bar{background:var(--moss);height:8px;}
 
@@ -405,7 +413,7 @@
   .closing p{
     max-width:52ch;
     margin:0 auto;
-    color:#D9E0D5;
+    color:#F0D9E1;
     font-size:15.5px;
     line-height:1.7;
   }
@@ -439,7 +447,7 @@
     margin-top:2px;
     display:block;
   }
-  .day.type-reset .progress-indicator{color:#CFCABE;}
+  .day.type-reset .progress-indicator{color:#D9C5CE;}
 
   label.tick{
     display:inline-flex;
@@ -481,18 +489,18 @@
     margin-right:2px;
   }
 
-  td.log-cell{white-space:nowrap;}
-  td.log-cell .ticks{display:flex;flex-wrap:wrap;align-items:center;}
+  .log-cell{margin-top:9px;}
+  .log-cell .ticks{display:flex;flex-wrap:wrap;align-items:center;gap:2px 0;}
 
-  tr.done td.exname{
+  .exercise-row.done .exercise-name{
     color:var(--ink-soft);
     text-decoration:line-through;
     text-decoration-color:var(--moss);
     text-decoration-thickness:1.5px;
   }
-  tr.in-progress{background:var(--moss-pale);}
-  .day.type-recovery tr.in-progress, .day.type-recovery .check-list li.in-progress{background:var(--bronze-pale);}
-  .day.type-run tr.in-progress{background:var(--clay-pale);}
+  .exercise-row.in-progress{background:var(--moss-pale);}
+  .day.type-recovery .exercise-row.in-progress, .day.type-recovery .check-list li.in-progress{background:var(--bronze-pale);}
+  .day.type-run .exercise-row.in-progress{background:var(--clay-pale);}
 
   ul.check-list{list-style:none;margin:0;padding:0;font-size:14.5px;}
   ul.check-list li{
@@ -514,7 +522,7 @@
   .day.type-reset ul.check-list li.done span.item-text{text-decoration-color:var(--bronze);}
   .day.type-run ul.check-list li.done span.item-text{text-decoration-color:var(--clay);}
   .day.type-reset ul.check-list li{border-bottom-color:rgba(255,255,255,.08);}
-  .day.type-reset ul.check-list li.done span.item-text{color:#9AA69B;}
+  .day.type-reset ul.check-list li.done span.item-text{color:#A98D98;}
 
   /* ---------- PER-DAY LUNCH ---------- */
   .lunch-block{
@@ -545,7 +553,7 @@
     border-left-color:var(--bronze-pale);
   }
   .day.type-reset .lunch-block .dish-name{color:var(--paper);}
-  .day.type-reset .lunch-block .dish-items{color:#C6CFC3;}
+  .day.type-reset .lunch-block .dish-items{color:#D1BEC7;}
 
   /* ---------- COLLAPSE / EXPAND ---------- */
   .day > .day-header{
@@ -564,22 +572,84 @@
   }
   .day:not(.collapsed) .chevron{transform:translateY(-1px) rotate(0deg);}
 
-  /* ---------- TOP DAY SELECTOR ---------- */
-  .week-card{cursor:pointer;transition:transform .15s ease, box-shadow .15s ease;}
-  .week-card:hover{transform:translateY(-1px);}
-  .week-card.active{
-    box-shadow:0 0 0 2px var(--ink) inset;
-  }
-  .week-card.active.recovery{box-shadow:0 0 0 2px var(--bronze) inset;}
-  .week-card.active.run{box-shadow:0 0 0 2px var(--clay) inset;}
-  .week-card.active.reset{box-shadow:0 0 0 2px var(--bronze-pale) inset;}
-  .week-card:focus-visible{outline:2px solid var(--moss);outline-offset:2px;}
   .overview-hint{
     font-size:13px;
     color:var(--ink-soft);
     margin-top:-6px;
     margin-bottom:16px;
   }
+
+  /* ---------- VIEW TABS / HISTORY ---------- */
+  .view-tabs{
+    display:flex;
+    gap:8px;
+    margin:28px 0 20px;
+    border-bottom:1px solid var(--line);
+  }
+  .view-tab{
+    font-family:'Public Sans', sans-serif;
+    font-size:14px;
+    font-weight:600;
+    color:var(--ink-soft);
+    background:none;
+    border:none;
+    border-bottom:2px solid transparent;
+    padding:10px 4px 12px;
+    cursor:pointer;
+    margin-right:18px;
+  }
+  .view-tab.active{
+    color:var(--moss-dark);
+    border-bottom-color:var(--moss);
+  }
+
+  .sunday-banner{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    flex-wrap:wrap;
+    background:var(--moss-pale);
+    border:1px solid var(--moss);
+    padding:12px 16px;
+    margin-bottom:22px;
+    font-size:14px;
+    color:var(--moss-dark);
+  }
+  .sunday-banner button{
+    font-family:'Public Sans', sans-serif;
+    font-size:13px;
+    font-weight:700;
+    color:var(--white);
+    background:var(--moss);
+    border:none;
+    padding:8px 14px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+
+  .history-card{
+    border:1px solid var(--line);
+    background:var(--white);
+    padding:16px 18px;
+    margin-bottom:14px;
+  }
+  .history-card .history-date{
+    font-family:'Fraunces', serif;
+    font-size:17px;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+  .history-day-row{
+    display:flex;
+    justify-content:space-between;
+    font-size:13.5px;
+    padding:5px 0;
+    border-bottom:1px solid var(--paper-deep);
+  }
+  .history-day-row:last-child{border-bottom:none;}
+  .history-day-row .hd-name{color:var(--ink-soft);}
+  .history-day-row .hd-count{font-variant-numeric:tabular-nums;font-weight:600;color:var(--ink);}
 </style>
 </head>
 <body>
@@ -602,6 +672,17 @@
 
 <div class="wrap">
 
+  <div class="view-tabs">
+    <button type="button" class="view-tab active" data-view="programme">This week</button>
+    <button type="button" class="view-tab" data-view="history">History</button>
+  </div>
+  <div id="sunday-banner" class="sunday-banner" style="display:none;">
+    <span>It's Sunday — archive this week's ticks and start fresh?</span>
+    <button type="button" id="sunday-archive-btn">Archive &amp; clear</button>
+  </div>
+
+  <div id="view-programme">
+
   <section id="philosophy">
     <div class="section-head"><h2>Training philosophy</h2><span class="tag">Why the programme is built this way</span></div>
     <p class="philosophy-lede">Do not chase exhaustion. Chase high-quality performance.</p>
@@ -623,16 +704,16 @@
 
   <section id="overview" class="on-paper-deep">
     <div class="section-head"><h2>The week at a glance</h2><span class="tag">Mon–Sun</span></div>
-    <p class="overview-hint">Tap a day to expand it below.</p>
-    <div class="week-grid">
-      <div class="week-card" data-select="mon" role="button" tabindex="0"><span class="day-name">Monday</span><div class="focus">Lower Body Strength</div><div class="dur">50–60 min</div></div>
-      <div class="week-card" data-select="tue" role="button" tabindex="0"><span class="day-name">Tuesday</span><div class="focus">Upper A — Pull + Rotation</div><div class="dur">50–60 min</div></div>
-      <div class="week-card recovery" data-select="wed" role="button" tabindex="0"><span class="day-name">Wednesday</span><div class="focus">Yoga + Mobility + Walk</div><div class="dur">45–60 min</div></div>
-      <div class="week-card" data-select="thu" role="button" tabindex="0"><span class="day-name">Thursday</span><div class="focus">Lower Body Athletic + Power</div><div class="dur">50–60 min</div></div>
-      <div class="week-card" data-select="fri" role="button" tabindex="0"><span class="day-name">Friday</span><div class="focus">Upper B — Back + Anti-Rotation</div><div class="dur">45–60 min</div></div>
-      <div class="week-card run" data-select="sat" role="button" tabindex="0"><span class="day-name">Saturday</span><div class="focus">Run Day</div><div class="dur">45–60 min</div></div>
-      <div class="week-card reset" data-select="sun" role="button" tabindex="0"><span class="day-name">Sunday</span><div class="focus">Nervous System Reset</div><div class="dur">No targets, no pressure</div></div>
+    <div class="day-strip" role="tablist" aria-label="Select a day">
+      <button type="button" class="day-tab" data-select="mon" data-focus="Lower Body Strength" data-dur="50–60 min" role="tab" aria-selected="false"><span class="day-tab-abbr">Mon</span><span class="day-tab-dot"></span></button>
+      <button type="button" class="day-tab" data-select="tue" data-focus="Upper A — Pull + Rotation" data-dur="50–60 min" role="tab" aria-selected="false"><span class="day-tab-abbr">Tue</span><span class="day-tab-dot"></span></button>
+      <button type="button" class="day-tab recovery" data-select="wed" data-focus="Yoga + Mobility + Walk" data-dur="45–60 min" role="tab" aria-selected="false"><span class="day-tab-abbr">Wed</span><span class="day-tab-dot"></span></button>
+      <button type="button" class="day-tab" data-select="thu" data-focus="Lower Body Athletic + Power" data-dur="50–60 min" role="tab" aria-selected="false"><span class="day-tab-abbr">Thu</span><span class="day-tab-dot"></span></button>
+      <button type="button" class="day-tab" data-select="fri" data-focus="Upper B — Back + Anti-Rotation" data-dur="45–60 min" role="tab" aria-selected="false"><span class="day-tab-abbr">Fri</span><span class="day-tab-dot"></span></button>
+      <button type="button" class="day-tab run" data-select="sat" data-focus="Run Day" data-dur="45–60 min" role="tab" aria-selected="false"><span class="day-tab-abbr">Sat</span><span class="day-tab-dot"></span></button>
+      <button type="button" class="day-tab reset" data-select="sun" data-focus="Nervous System Reset" data-dur="No targets, no pressure" role="tab" aria-selected="false"><span class="day-tab-abbr">Sun</span><span class="day-tab-dot"></span></button>
     </div>
+    <p class="day-strip-caption" id="day-strip-caption">Tap a day above to open its full plan below.</p>
   </section>
 
   <section id="monday">
@@ -656,22 +737,49 @@
         </ul>
 
         <div class="block-title">Main training</div>
-        <table class="lift">
-          <tr><th>Exercise</th><th>Sets × Reps</th><th>Log</th><th>Notes</th></tr>
-          <tr><td class="exname">Trap bar deadlift</td><td class="num">5 × 3</td><td class="log-cell" data-sets="mon-deadlift:5"></td><td class="note">RPE 7 · rest ~2–3 min</td></tr>
-          <tr><td class="exname">Front squat</td><td class="num">4 × 5</td><td class="log-cell" data-sets="mon-frontsquat:4"></td><td class="note">Controlled, technically clean · rest ~2 min</td></tr>
-          <tr><td class="exname">Bulgarian split squat</td><td class="num">3 × 8 / leg</td><td class="log-cell" data-sets="mon-bulgarian:3"></td><td class="note">—</td></tr>
-          <tr><td class="exname">Hamstring curl</td><td class="num">3 × 10</td><td class="log-cell" data-sets="mon-hamcurl:3"></td><td class="note">—</td></tr>
-          <tr><td class="exname">Suitcase carry</td><td class="num">3 × 30–40m / side</td><td class="log-cell" data-sets="mon-suitcase:3"></td><td class="note">—</td></tr>
-        </table>
+        <div class="exercise-list">
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Trap bar deadlift</span><span class="exercise-sets">5 × 3</span></div>
+            <div class="log-cell" data-sets="mon-deadlift:5"></div>
+            <div class="exercise-note">RPE 7 · rest ~2–3 min</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Front squat</span><span class="exercise-sets">4 × 5</span></div>
+            <div class="log-cell" data-sets="mon-frontsquat:4"></div>
+            <div class="exercise-note">Controlled, technically clean · rest ~2 min</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Bulgarian split squat</span><span class="exercise-sets">3 × 8 / leg</span></div>
+            <div class="log-cell" data-sets="mon-bulgarian:3"></div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Hamstring curl</span><span class="exercise-sets">3 × 10</span></div>
+            <div class="log-cell" data-sets="mon-hamcurl:3"></div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Suitcase carry</span><span class="exercise-sets">3 × 30–40m / side</span></div>
+            <div class="log-cell" data-sets="mon-suitcase:3"></div>
+          </div>
+        </div>
 
         <div class="block-title">Finisher — Kettlebell Complex</div>
-        <table class="lift">
-          <tr><th>Exercise</th><th>Sets × Reps</th><th>Log</th><th>Notes</th></tr>
-          <tr><td class="exname">Kettlebell swing</td><td class="num">3 × 12–15</td><td class="log-cell" data-sets="mon-kb-swing:3"></td><td class="note">Explosive hip hinge, not a squat</td></tr>
-          <tr><td class="exname">Goblet squat</td><td class="num">2 × 10</td><td class="log-cell" data-sets="mon-kb-squat:2"></td><td class="note">Elbows inside knees at the bottom</td></tr>
-          <tr><td class="exname">Single-arm kettlebell swing <span style="font-weight:400;color:var(--ink-soft);">(optional)</span></td><td class="num">2 × 8 / side</td><td class="log-cell" data-sets="mon-kb-single:2"></td><td class="note">Only if recovered and feeling fresh</td></tr>
-        </table>
+        <div class="exercise-list">
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Kettlebell swing</span><span class="exercise-sets">3 × 12–15</span></div>
+            <div class="log-cell" data-sets="mon-kb-swing:3"></div>
+            <div class="exercise-note">Explosive hip hinge, not a squat</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Goblet squat</span><span class="exercise-sets">2 × 10</span></div>
+            <div class="log-cell" data-sets="mon-kb-squat:2"></div>
+            <div class="exercise-note">Elbows inside knees at the bottom</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Single-arm kettlebell swing <span style="font-weight:400;color:var(--ink-soft);">(optional)</span></span><span class="exercise-sets">2 × 8 / side</span></div>
+            <div class="log-cell" data-sets="mon-kb-single:2"></div>
+            <div class="exercise-note">Only if recovered and feeling fresh</div>
+          </div>
+        </div>
         <div class="note-box">Short conditioning finisher — keep quality high and stop before form breaks down, not a grind to failure.</div>
 
         <div class="block-title">Finish — 5–8 minutes mobility</div>
@@ -710,16 +818,41 @@
         </ul>
 
         <div class="block-title">Main training</div>
-        <table class="lift">
-          <tr><th>Exercise</th><th>Sets × Reps</th><th>Log</th><th>Notes</th></tr>
-          <tr><td class="exname">Pull-ups (or assisted)</td><td class="num">3–4 × 5–8</td><td class="log-cell" data-sets="tue-pullup:4"></td><td class="note">Rest 90–120 sec</td></tr>
-          <tr><td class="exname">Single-arm KB row</td><td class="num">3 × 8–10 / side</td><td class="log-cell" data-sets="tue-row:3"></td><td class="note">Pair with the press below to save time</td></tr>
-          <tr><td class="exname">Half-kneeling single-arm KB press</td><td class="num">3 × 6–8 / side</td><td class="log-cell" data-sets="tue-press:3"></td><td class="note">—</td></tr>
-          <tr><td class="exname">Cable wood chop</td><td class="num">3 × 8–12 / side</td><td class="log-cell" data-sets="tue-woodchop:3"></td><td class="note">Rotate through the upper back and hips, don't just pull with the arms</td></tr>
-          <tr><td class="exname">Kettlebell swing</td><td class="num">4 × 10–15</td><td class="log-cell" data-sets="tue-swing:4"></td><td class="note">Explosive hip hinge, not a squat · rest ~60–90 sec</td></tr>
-          <tr><td class="exname">Pallof press with hold</td><td class="num">2–3 × 8–10 / side</td><td class="log-cell" data-sets="tue-pallof:3"></td><td class="note">Pause 2–3 sec every rep</td></tr>
-          <tr><td class="exname">Suitcase carry</td><td class="num">2–3 × 30–40m / side</td><td class="log-cell" data-sets="tue-suitcase:3"></td><td class="note">—</td></tr>
-        </table>
+        <div class="exercise-list">
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Pull-ups (or assisted)</span><span class="exercise-sets">3–4 × 5–8</span></div>
+            <div class="log-cell" data-sets="tue-pullup:4"></div>
+            <div class="exercise-note">Rest 90–120 sec</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Single-arm KB row</span><span class="exercise-sets">3 × 8–10 / side</span></div>
+            <div class="log-cell" data-sets="tue-row:3"></div>
+            <div class="exercise-note">Pair with the press below to save time</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Half-kneeling single-arm KB press</span><span class="exercise-sets">3 × 6–8 / side</span></div>
+            <div class="log-cell" data-sets="tue-press:3"></div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Cable wood chop</span><span class="exercise-sets">3 × 8–12 / side</span></div>
+            <div class="log-cell" data-sets="tue-woodchop:3"></div>
+            <div class="exercise-note">Rotate through the upper back and hips, don't just pull with the arms</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Kettlebell swing</span><span class="exercise-sets">4 × 10–15</span></div>
+            <div class="log-cell" data-sets="tue-swing:4"></div>
+            <div class="exercise-note">Explosive hip hinge, not a squat · rest ~60–90 sec</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Pallof press with hold</span><span class="exercise-sets">2–3 × 8–10 / side</span></div>
+            <div class="log-cell" data-sets="tue-pallof:3"></div>
+            <div class="exercise-note">Pause 2–3 sec every rep</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Suitcase carry</span><span class="exercise-sets">2–3 × 30–40m / side</span></div>
+            <div class="log-cell" data-sets="tue-suitcase:3"></div>
+          </div>
+        </div>
 
         <div class="lunch-block">
           <div class="lunch-label">Today's lunch</div>
@@ -779,20 +912,39 @@
         </ul>
 
         <div class="block-title">Main training</div>
-        <table class="lift">
-          <tr><th>Exercise</th><th>Sets × Reps</th><th>Log</th><th>Notes</th></tr>
-          <tr><td class="exname">Back squat</td><td class="num">5 × 5</td><td class="log-cell" data-sets="thu-backsquat:5"></td><td class="note">Controlled, strong — don't grind reps unnecessarily</td></tr>
-          <tr><td class="exname">Romanian deadlift</td><td class="num">3 × 8</td><td class="log-cell" data-sets="thu-rdl:3"></td><td class="note">—</td></tr>
-          <tr><td class="exname">Hip thrust</td><td class="num">3 × 10</td><td class="log-cell" data-sets="thu-hipthrust:3"></td><td class="note">Full hip extension, pause and squeeze at the top</td></tr>
-          <tr><td class="exname">Pallof press</td><td class="num">3 × 10–12 / side</td><td class="log-cell" data-sets="thu-pallof:3"></td><td class="note">—</td></tr>
-          <tr><td class="exname">Heavy farmer carry</td><td class="num">3 rounds</td><td class="log-cell" data-sets="thu-farmer:3"></td><td class="note">—</td></tr>
-        </table>
+        <div class="exercise-list">
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Back squat</span><span class="exercise-sets">5 × 5</span></div>
+            <div class="log-cell" data-sets="thu-backsquat:5"></div>
+            <div class="exercise-note">Controlled, strong — don't grind reps unnecessarily</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Romanian deadlift</span><span class="exercise-sets">3 × 8</span></div>
+            <div class="log-cell" data-sets="thu-rdl:3"></div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Hip thrust</span><span class="exercise-sets">3 × 10</span></div>
+            <div class="log-cell" data-sets="thu-hipthrust:3"></div>
+            <div class="exercise-note">Full hip extension, pause and squeeze at the top</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Pallof press</span><span class="exercise-sets">3 × 10–12 / side</span></div>
+            <div class="log-cell" data-sets="thu-pallof:3"></div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Heavy farmer carry</span><span class="exercise-sets">3 rounds</span></div>
+            <div class="log-cell" data-sets="thu-farmer:3"></div>
+          </div>
+        </div>
 
         <div class="block-title">Finisher — Sprints</div>
-        <table class="lift">
-          <tr><th>Exercise</th><th>Sets × Reps</th><th>Log</th><th>Notes</th></tr>
-          <tr><td class="exname">Sprints (assault runner)</td><td class="num">5 × 15–20 sec</td><td class="log-cell" data-sets="thu-sprint:5"></td><td class="note">All-out effort · full recovery ~90 sec between reps · skip if legs feel heavy from the lifts</td></tr>
-        </table>
+        <div class="exercise-list">
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Sprints (assault runner)</span><span class="exercise-sets">5 × 15–20 sec</span></div>
+            <div class="log-cell" data-sets="thu-sprint:5"></div>
+            <div class="exercise-note">All-out effort · full recovery ~90 sec between reps · skip if legs feel heavy from the lifts</div>
+          </div>
+        </div>
 
         <div class="block-title">Finish — 5–10 minutes</div>
         <ul class="check-list" data-checklist="thu-finish">
@@ -829,16 +981,39 @@
         </ul>
 
         <div class="block-title">Main training</div>
-        <table class="lift">
-          <tr><th>Exercise</th><th>Sets × Reps</th><th>Log</th><th>Notes</th></tr>
-          <tr><td class="exname">Chest-supported row</td><td class="num">4 × 6–10</td><td class="log-cell" data-sets="fri-row:4"></td><td class="note">—</td></tr>
-          <tr><td class="exname">Neutral-grip pull-up / lat pulldown</td><td class="num">3 × 8–12</td><td class="log-cell" data-sets="fri-pulldown:3"></td><td class="note">—</td></tr>
-          <tr><td class="exname">Push-up variation</td><td class="num">3 × 8–15</td><td class="log-cell" data-sets="fri-pushup:3"></td><td class="note">Leave 1–3 reps in reserve</td></tr>
-          <tr><td class="exname">Single-arm KB floor press</td><td class="num">3 × 8–10 / side</td><td class="log-cell" data-sets="fri-floorpress:3"></td><td class="note">Unilateral load forces the trunk to resist rotation while pressing</td></tr>
-          <tr><td class="exname">Cable anti-rotation press / Pallof walkout</td><td class="num">3 × 6–10 / side</td><td class="log-cell" data-sets="fri-antirot:3"></td><td class="note"><strong>Primary trunk emphasis today</strong></td></tr>
-          <tr><td class="exname">KB front-rack carry</td><td class="num">3 × 20–30m / side</td><td class="log-cell" data-sets="fri-carry:3"></td><td class="note">—</td></tr>
-          <tr><td class="exname">Dead bug with full exhale</td><td class="num">2–3 × 6–8 / side</td><td class="log-cell" data-sets="fri-deadbug:3"></td><td class="note">—</td></tr>
-        </table>
+        <div class="exercise-list">
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Chest-supported row</span><span class="exercise-sets">4 × 6–10</span></div>
+            <div class="log-cell" data-sets="fri-row:4"></div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Neutral-grip pull-up / lat pulldown</span><span class="exercise-sets">3 × 8–12</span></div>
+            <div class="log-cell" data-sets="fri-pulldown:3"></div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Push-up variation</span><span class="exercise-sets">3 × 8–15</span></div>
+            <div class="log-cell" data-sets="fri-pushup:3"></div>
+            <div class="exercise-note">Leave 1–3 reps in reserve</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Single-arm KB floor press</span><span class="exercise-sets">3 × 8–10 / side</span></div>
+            <div class="log-cell" data-sets="fri-floorpress:3"></div>
+            <div class="exercise-note">Unilateral load forces the trunk to resist rotation while pressing</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Rope sled pulls</span><span class="exercise-sets">3–4 × 15–25m</span></div>
+            <div class="log-cell" data-sets="fri-sledpull:4"></div>
+            <div class="exercise-note">Brace the trunk, stay tall and athletic, pull hand-over-hand with controlled powerful strokes — not a sloppy max-effort conditioning session</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">KB front-rack carry</span><span class="exercise-sets">3 × 20–30m / side</span></div>
+            <div class="log-cell" data-sets="fri-carry:3"></div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Dead bug with full exhale</span><span class="exercise-sets">2 × 6–8 / side</span></div>
+            <div class="log-cell" data-sets="fri-deadbug:2"></div>
+          </div>
+        </div>
 
         <div class="lunch-block">
           <div class="lunch-label">Today's lunch</div>
@@ -857,13 +1032,28 @@
       </div>
       <div class="day-body">
         <p class="day-intent">Cardiovascular fitness and enjoyment — not accumulating unnecessary fatigue.</p>
-        <table class="lift">
-          <tr><th>Week</th><th>Session</th><th>Log</th><th>Notes</th></tr>
-          <tr><td class="exname">Week 1</td><td>Easy zone 2 — ~6km</td><td class="log-cell" data-sets="sat-wk1:1"></td><td class="note">Comfortably conversational pace</td></tr>
-          <tr><td class="exname">Week 2</td><td>Hill session</td><td class="log-cell" data-sets="sat-wk2:1"></td><td class="note">6–8 short hill efforts, walk/jog back for full recovery, 45–60 min total</td></tr>
-          <tr><td class="exname">Week 3</td><td>Steady run — ~8km</td><td class="log-cell" data-sets="sat-wk3:1"></td><td class="note">Comfortably hard but controlled</td></tr>
-          <tr><td class="exname">Week 4</td><td>Long easy run — ~8–10km</td><td class="log-cell" data-sets="sat-wk4:1"></td><td class="note">Keep the pace easy</td></tr>
-        </table>
+        <div class="exercise-list">
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Week 1</span><span class="exercise-sets">Easy zone 2 — ~6km</span></div>
+            <div class="log-cell" data-sets="sat-wk1:1"></div>
+            <div class="exercise-note">Comfortably conversational pace</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Week 2</span><span class="exercise-sets">Hill session</span></div>
+            <div class="log-cell" data-sets="sat-wk2:1"></div>
+            <div class="exercise-note">6–8 short hill efforts, walk/jog back for full recovery, 45–60 min total</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Week 3</span><span class="exercise-sets">Steady run — ~8km</span></div>
+            <div class="log-cell" data-sets="sat-wk3:1"></div>
+            <div class="exercise-note">Comfortably hard but controlled</div>
+          </div>
+          <div class="exercise-row">
+            <div class="exercise-row-head"><span class="exercise-name">Week 4</span><span class="exercise-sets">Long easy run — ~8–10km</span></div>
+            <div class="log-cell" data-sets="sat-wk4:1"></div>
+            <div class="exercise-note">Keep the pace easy</div>
+          </div>
+        </div>
         <p style="font-size:13.5px;color:var(--ink-soft);margin-top:12px;">Repeat the rotation, adjusting distance and difficulty gradually according to recovery and progress. Tick off whichever week of the rotation you've just run.</p>
 
         <div class="lunch-block">
@@ -959,15 +1149,32 @@
 
   <section id="structure" class="on-paper-deep">
     <div class="section-head"><h2>Inside a 45–60 minute session</h2><span class="tag">Time allocation</span></div>
-    <table class="structure">
-      <tr><th>Block</th><th>Time</th><th></th></tr>
-      <tr><td>Warm-up &amp; movement prep</td><td class="num">8–10 min</td><td><div class="bar-wrap"><div class="bar" style="width:16%;"></div></div></td></tr>
-      <tr><td>Primary lift</td><td class="num">12–18 min</td><td><div class="bar-wrap"><div class="bar" style="width:28%;"></div></div></td></tr>
-      <tr><td>Secondary lift</td><td class="num">8–12 min</td><td><div class="bar-wrap"><div class="bar" style="width:18%;"></div></div></td></tr>
-      <tr><td>Accessories</td><td class="num">12–18 min</td><td><div class="bar-wrap"><div class="bar" style="width:28%;"></div></div></td></tr>
-      <tr><td>Carries / trunk work</td><td class="num">5–8 min</td><td><div class="bar-wrap"><div class="bar" style="width:11%;"></div></div></td></tr>
-      <tr><td>Mobility / cool-down</td><td class="num">5 min</td><td><div class="bar-wrap"><div class="bar" style="width:9%;"></div></div></td></tr>
-    </table>
+    <div class="structure-list">
+        <div class="structure-row">
+          <div class="structure-row-head"><span class="structure-name">Warm-up &amp; movement prep</span><span class="structure-time">8–10 min</span></div>
+          <div class="bar-wrap"><div class="bar" style="width:16%;"></div></div>
+        </div>
+        <div class="structure-row">
+          <div class="structure-row-head"><span class="structure-name">Primary lift</span><span class="structure-time">12–18 min</span></div>
+          <div class="bar-wrap"><div class="bar" style="width:28%;"></div></div>
+        </div>
+        <div class="structure-row">
+          <div class="structure-row-head"><span class="structure-name">Secondary lift</span><span class="structure-time">8–12 min</span></div>
+          <div class="bar-wrap"><div class="bar" style="width:18%;"></div></div>
+        </div>
+        <div class="structure-row">
+          <div class="structure-row-head"><span class="structure-name">Accessories</span><span class="structure-time">12–18 min</span></div>
+          <div class="bar-wrap"><div class="bar" style="width:28%;"></div></div>
+        </div>
+        <div class="structure-row">
+          <div class="structure-row-head"><span class="structure-name">Carries / trunk work</span><span class="structure-time">5–8 min</span></div>
+          <div class="bar-wrap"><div class="bar" style="width:11%;"></div></div>
+        </div>
+        <div class="structure-row">
+          <div class="structure-row-head"><span class="structure-name">Mobility / cool-down</span><span class="structure-time">5 min</span></div>
+          <div class="bar-wrap"><div class="bar" style="width:9%;"></div></div>
+        </div>
+      </div>
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:14px;">Target: most sessions finish around 50–55 minutes, 60 as the upper limit. Use sensible pairings for non-competing exercises — but don't turn strength training into a rushed circuit.</p>
   </section>
 
@@ -1007,6 +1214,17 @@
     <p style="font-size:13.5px;color:var(--ink-soft);margin-top:16px;">If raw vegetables cause bloating, prefer cooked vegetables. If fermented dairy is tolerated, Greek yoghurt or kefir can be an additional option. Batch-cook where practical to make weekday lunches easy.</p>
   </section>
 
+  </div>
+
+  <div id="view-history" style="display:none;">
+    <section id="history-section">
+      <div class="section-head"><h2>Week history</h2><span class="tag">Archived weeks</span></div>
+      <p class="overview-hint">Each archived week is a snapshot of what was ticked before it was cleared.</p>
+      <div id="history-list"></div>
+      <p id="history-empty" class="overview-hint" style="display:none;">Nothing archived yet — use "Archive &amp; clear" at the bottom of the week to save your first one.</p>
+    </section>
+  </div>
+
 </div>
 
 <div class="closing">
@@ -1017,7 +1235,7 @@
 
 <footer>
   Strong · Mobile · Athletic — 12-Week Performance &amp; Longevity Programme<br>
-  <a href="#" id="clear-week" style="color:var(--ink-soft);">Clear this week's ticks</a>
+  <a href="#" id="clear-week" style="color:var(--ink-soft);">Archive this week &amp; clear</a>
 </footer>
 
 <script>
@@ -1036,7 +1254,7 @@
   }
 
   // Build per-set checkboxes inside each log-cell
-  document.querySelectorAll('td.log-cell[data-sets]').forEach(function(cell){
+  document.querySelectorAll('.log-cell[data-sets]').forEach(function(cell){
     var parts = cell.getAttribute('data-sets').split(':');
     var id = parts[0];
     var count = parseInt(parts[1], 10) || 1;
@@ -1081,7 +1299,7 @@
   });
 
   function updateRowState(cb){
-    var row = cb.closest('tr');
+    var row = cb.closest('.exercise-row');
     if (row){
       var boxes = row.querySelectorAll('input[type="checkbox"]');
       var all = Array.prototype.every.call(boxes, function(b){ return b.checked; });
@@ -1117,54 +1335,166 @@
 
   document.querySelectorAll('[data-day]').forEach(updateDayProgress);
 
+  // ---------- History: archive + clear ----------
+  var HISTORY_KEY = key('history');
+  var DAY_LABELS = { mon:'Monday', tue:'Tuesday', wed:'Wednesday', thu:'Thursday', fri:'Friday', sat:'Saturday', sun:'Sunday' };
+
+  function loadHistory(){
+    try {
+      var raw = localStorage.getItem(HISTORY_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch(e){ return []; }
+  }
+  function saveHistory(list){
+    try { localStorage.setItem(HISTORY_KEY, JSON.stringify(list)); }
+    catch(e){ /* storage unavailable */ }
+  }
+
+  function buildWeekSummary(){
+    var summary = {};
+    document.querySelectorAll('.day[data-day]').forEach(function(dayEl){
+      var dayKey = dayEl.getAttribute('data-day');
+      var boxes = dayEl.querySelectorAll('input[type="checkbox"]');
+      var checked = Array.prototype.filter.call(boxes, function(b){ return b.checked; }).length;
+      summary[dayKey] = { checked: checked, total: boxes.length };
+    });
+    return summary;
+  }
+
+  function renderHistory(){
+    var list = loadHistory();
+    var container = document.getElementById('history-list');
+    var empty = document.getElementById('history-empty');
+    if (!container) return;
+    container.innerHTML = '';
+    if (!list.length){
+      if (empty) empty.style.display = 'block';
+      return;
+    }
+    if (empty) empty.style.display = 'none';
+    list.slice().reverse().forEach(function(entry){
+      var card = document.createElement('div');
+      card.className = 'history-card';
+
+      var dateEl = document.createElement('div');
+      dateEl.className = 'history-date';
+      var d = new Date(entry.date);
+      dateEl.textContent = isNaN(d.getTime()) ? entry.date : d.toLocaleDateString(undefined, { weekday:'short', day:'numeric', month:'short', year:'numeric' });
+      card.appendChild(dateEl);
+
+      ['mon','tue','wed','thu','fri','sat','sun'].forEach(function(dayKey){
+        var d2 = entry.summary && entry.summary[dayKey];
+        if (!d2) return;
+        var row = document.createElement('div');
+        row.className = 'history-day-row';
+        var nameEl = document.createElement('span');
+        nameEl.className = 'hd-name';
+        nameEl.textContent = DAY_LABELS[dayKey];
+        var countEl = document.createElement('span');
+        countEl.className = 'hd-count';
+        countEl.textContent = d2.checked + ' / ' + d2.total;
+        row.appendChild(nameEl);
+        row.appendChild(countEl);
+        card.appendChild(row);
+      });
+
+      container.appendChild(card);
+    });
+  }
+
+  function archiveAndClear(){
+    var list = loadHistory();
+    list.push({ date: new Date().toISOString(), summary: buildWeekSummary() });
+    saveHistory(list);
+
+    document.querySelectorAll('input[type="checkbox"][data-key]').forEach(function(cb){
+      cb.checked = false;
+      saveState(cb.getAttribute('data-key'), false);
+      updateRowState(cb);
+    });
+    document.querySelectorAll('[data-day]').forEach(updateDayProgress);
+    renderHistory();
+  }
+
   var clearLink = document.getElementById('clear-week');
   if (clearLink){
     clearLink.addEventListener('click', function(e){
       e.preventDefault();
-      if (!confirm("Clear every tick on this page? This can't be undone.")) return;
-      document.querySelectorAll('input[type="checkbox"][data-key]').forEach(function(cb){
-        cb.checked = false;
-        saveState(cb.getAttribute('data-key'), false);
-        updateRowState(cb);
-      });
-      document.querySelectorAll('[data-day]').forEach(updateDayProgress);
+      if (!confirm("Archive this week's progress to History, then clear every tick? This can't be undone.")) return;
+      archiveAndClear();
+      var sb = document.getElementById('sunday-banner');
+      if (sb) sb.style.display = 'none';
     });
   }
 
+  var sundayBtn = document.getElementById('sunday-archive-btn');
+  if (sundayBtn){
+    sundayBtn.addEventListener('click', function(){
+      if (!confirm("Archive this week's progress to History, then clear every tick? This can't be undone.")) return;
+      archiveAndClear();
+      var sb = document.getElementById('sunday-banner');
+      if (sb) sb.style.display = 'none';
+    });
+  }
+
+  if (new Date().getDay() === 0){
+    var banner = document.getElementById('sunday-banner');
+    if (banner) banner.style.display = 'flex';
+  }
+
+  renderHistory();
+
+  // ---------- View tabs: This week / History ----------
+  document.querySelectorAll('.view-tab').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      var view = tab.getAttribute('data-view');
+      document.querySelectorAll('.view-tab').forEach(function(t){ t.classList.remove('active'); });
+      tab.classList.add('active');
+      document.getElementById('view-programme').style.display = (view === 'programme') ? 'block' : 'none';
+      document.getElementById('view-history').style.display = (view === 'history') ? 'block' : 'none';
+    });
+  });
+
   // ---------- Day selection / expand-collapse ----------
   var currentOpenDay = null;
+  var defaultCaption = 'Tap a day above to open its full plan below.';
 
   function collapseAllDays(){
     document.querySelectorAll('.day[data-day]').forEach(function(d){ d.classList.add('collapsed'); });
-    document.querySelectorAll('.week-card[data-select]').forEach(function(p){ p.classList.remove('active'); });
+    document.querySelectorAll('.day-tab[data-select]').forEach(function(t){
+      t.classList.remove('active');
+      t.setAttribute('aria-selected', 'false');
+    });
   }
 
   function selectDay(dayKey, shouldScroll){
     var day = document.querySelector('.day[data-day="' + dayKey + '"]');
-    var pill = document.querySelector('.week-card[data-select="' + dayKey + '"]');
+    var tab = document.querySelector('.day-tab[data-select="' + dayKey + '"]');
+    var caption = document.getElementById('day-strip-caption');
     var reopening = currentOpenDay !== dayKey;
 
     collapseAllDays();
 
     if (reopening){
       if (day) day.classList.remove('collapsed');
-      if (pill) pill.classList.add('active');
+      if (tab){
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected', 'true');
+      }
       currentOpenDay = dayKey;
+      if (caption && tab){
+        caption.innerHTML = '<strong>' + tab.getAttribute('data-focus') + '</strong> · ' + tab.getAttribute('data-dur');
+      }
       if (shouldScroll && day) day.scrollIntoView({ behavior: 'smooth', block: 'start' });
     } else {
       currentOpenDay = null;
+      if (caption) caption.textContent = defaultCaption;
     }
   }
 
-  document.querySelectorAll('.week-card[data-select]').forEach(function(pill){
-    pill.addEventListener('click', function(){
-      selectDay(pill.getAttribute('data-select'), true);
-    });
-    pill.addEventListener('keydown', function(e){
-      if (e.key === 'Enter' || e.key === ' '){
-        e.preventDefault();
-        selectDay(pill.getAttribute('data-select'), true);
-      }
+  document.querySelectorAll('.day-tab[data-select]').forEach(function(tab){
+    tab.addEventListener('click', function(){
+      selectDay(tab.getAttribute('data-select'), true);
     });
   });
 
